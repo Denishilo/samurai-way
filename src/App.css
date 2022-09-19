@@ -13,29 +13,3 @@ ul {
   padding: 0 10px ;
 }
 
-.navigation__section{
-  display: flex;
-}
-
-.header__container{
-  height: 50px;
-  background: #F0F8FF
-}
-
-.navigation__content{
-  min-width: 25%;
-  background: #C9ADC6;
-}
-
-.main__container{
-  min-width: 75%;
-  background: #FFEBD8;
-}
-.navigation__link + .navigation__link{
- padding-top: 15px;
-}
-
-.main__img{
-
-  height: 250px;
-}

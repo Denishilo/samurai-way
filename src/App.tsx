@@ -1,18 +1,19 @@
 import React from 'react';
 import './App.css';
-import Header from "./components/Header";
-import Navigation from "./components/Navigation";
-import MainContainer from "./components/MainContainer";
+import stylesNav from './components/Navigation/Navigation.module.css';
+import {Header} from "./components/Header/Header";
+import {Navigation} from "./components/Navigation/Navigation";
+import {MainContainer} from "./components/MainContainer/MainContainer";
 
 const App = () => {
     return (
         <div className='wrapper'>
             <Header/>
-            <section className='main__content'>
-                    <div className="navigation__section">
-                        <Navigation/>
-                        <MainContainer/>
-                    </div>
+            <section>
+                <div className={stylesNav.navigation__section}>
+                    <Navigation/>
+                    <MainContainer/>
+                </div>
             </section>
         </div>
     );

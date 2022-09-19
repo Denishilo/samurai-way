@@ -1,0 +1,8 @@
+.navigation__section{
+    display: flex;
+}
+
+.navigation__content{
+    min-width: 25%;
+    background: #C9ADC6;
+}
