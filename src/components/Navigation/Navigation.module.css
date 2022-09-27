@@ -6,3 +6,13 @@
     min-width: 25%;
     background: #C9ADC6;
 }
+
+.active__link {
+    font-weight: bold;
+}
+a{
+    text-decoration: none;
+}
+a:active {
+    color: #F0F8FF;
+}

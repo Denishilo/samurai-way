@@ -8,7 +8,6 @@ export const Posts = () => {
         <div className={styles.posts}>
             <Post message='Hi! how are you?'/>
             <Post message='Im fine, thank you, and you?'/>
-
         </div>
     )
 }

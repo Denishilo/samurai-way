@@ -1,7 +1,4 @@
-.main__container{
-    min-width: 75%;
-    background: #FFEBD8;
-}
+
 .navigation__link + .navigation__link{
     padding-top: 15px;
 }

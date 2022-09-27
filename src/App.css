@@ -1,15 +1,20 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 ul {
-  list-style: none;
-  padding-left: 10px;
+    list-style: none;
+    padding-left: 10px;
 }
 
-.wrapper{
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 10px ;
+.wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.wrapper__content {
+    min-width: 75%;
+    background: #FFEBD8;
 }
 
