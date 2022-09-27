@@ -1,3 +1,25 @@
 .dialogs__wrapper {
+    margin-top: 1rem;
     display: flex;
+}
+
+.dialogs__users {
+    flex-basis: 25%;
+    margin-left: 1.5rem;
+
+}
+
+.dialogs__messages {
+    flex-basis: 75%;
+}
+
+.dialogs__user {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+
+}
+
+.dialogs__item {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
 }
