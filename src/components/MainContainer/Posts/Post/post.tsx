@@ -1,6 +1,5 @@
 import React from "react";
 import styles from './Post.module.css'
-import {findAllByDisplayValue} from "@testing-library/react";
 
 type PostType = {
     message: string,

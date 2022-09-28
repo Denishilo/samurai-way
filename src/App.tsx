@@ -5,7 +5,7 @@ import {Header} from "./components/Header/Header";
 import {Navigation} from "./components/Navigation/Navigation";
 import {MainContainer} from "./components/MainContainer/MainContainer";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
