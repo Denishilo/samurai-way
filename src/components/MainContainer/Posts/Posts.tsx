@@ -1,13 +1,20 @@
 import React from "react";
 import styles from './Posts.module.css'
 import {Post} from "./Post/post";
+import {PostType} from "../../../redux/redux";
 
 
-export const Posts = () => {
+type PostTypeProps = {
+    posts: PostType[]
+}
+
+export const Posts = (props: PostTypeProps) => {
+
+    let postDataElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+
     return (
         <div className={styles.posts}>
-            <Post message='Hi! how are you?'/>
-            <Post message='Im fine, thank you, and you?'/>
+            {postDataElements}
         </div>
     )
 }
