@@ -1,3 +1,6 @@
+import {renderTree} from "../render";
+
+
 export type DialogUserTypeProps = {
     name: string
     id: number
@@ -11,7 +14,17 @@ export type PostType = {
     message: string
     likesCount: number
 }
-export let state = {
+
+export type StateTypeProps = {
+    dialogsPages: {
+        dialogsUsers: DialogUserTypeProps[]
+        dialogsMessages: DialogItemTypeProps[]
+    },
+    mainPages: {
+        posts: PostType[]
+    }
+}
+export const state: StateTypeProps = {
     dialogsPages: {
         dialogsUsers: <DialogUserTypeProps[]>[
             {id: 1, name: 'Denis'},
@@ -34,4 +47,16 @@ export let state = {
             {id: 2, message: 'Im fine, thank you, and you?', likesCount: 4},
         ],
     }
+}
+export const addMessage = (message: string) => {
+    const newMessage: DialogItemTypeProps = {id: 6, message: message};
+    state.dialogsPages.dialogsMessages = [...state.dialogsPages.dialogsMessages, newMessage]
+    renderTree(state)
+}
+
+export const addPost = (message: string) => {
+    const newPost: PostType = {id: 3, message: message, likesCount: 0}
+    state.mainPages.posts = [...state.mainPages.posts, newPost]
+    renderTree(state)
+
 }

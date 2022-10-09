@@ -4,23 +4,23 @@ import {Posts} from "./Posts/Posts";
 import {MainBackground} from "./MainBackground/MainBackground";
 import {MainAvatar} from "./MainAvatar/MainAvatar";
 import {MainDescription} from "./MainDescription/MainDescription";
-import { PostType } from "../../redux/redux";
-
+import {PostType} from "../../redux/redux";
 
 
 type MainContainerTypeProps = {
     posts: PostType[]
+    addPost: (newPost: string) => void
 }
 
 export const MainContainer = (props: MainContainerTypeProps) => {
-    const {posts} = props
+    const {posts, addPost} = props
 
     return (
         <div className={styles.main__container}>
             <MainBackground/>
             <MainAvatar/>
             <MainDescription/>
-            <Posts posts={posts}/>
+            <Posts posts={posts} addPost={addPost}/>
         </div>
     )
 }

@@ -5,15 +5,13 @@ import {Header} from "./components/Header/Header";
 import {Navigation} from "./components/Navigation/Navigation";
 import {MainContainer} from "./components/MainContainer/MainContainer";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {DialogItemTypeProps, DialogUserTypeProps, PostType} from "./redux/redux";
 
-
-
-type AppTypeProps = {
+export type AppTypeProps = {
     state: {
         dialogsPages: {
             dialogsUsers: DialogUserTypeProps[]
@@ -23,31 +21,34 @@ type AppTypeProps = {
             posts: PostType[]
         }
     }
+    addMessage: (newMessage: string) => void
+    addPost: (newPost: string) => void
 }
 
 const App = (props: AppTypeProps) => {
-    const {dialogsPages,mainPages} = props.state
+    const {addMessage, addPost} = props
+    const {dialogsPages, mainPages} = props.state
 
     return (
-        <BrowserRouter>
-            <div className='wrapper'>
-                <Header/>
-                <section>
-                    <div className={stylesNav.navigation__section}>
-                        <Navigation/>
-                        <div className='wrapper__content'>
-                            <Route path={'/profile'} render={() => <MainContainer posts={mainPages.posts}/>}/>
-                            <Route path={'/dialogs'} render={() => <Dialogs dialogsUsers={dialogsPages.dialogsUsers}
-                                                                            dialogsMessages={dialogsPages.dialogsMessages}/>}/>
-                            <Route path={'/news'} render={() => <News/>}/>
-                            <Route path={'/music'} render={() => <Music/>}/>
-                            <Route path={'/settings'} render={() => <Settings/>}/>
-                        </div>
-
+        <div className='wrapper'>
+            <Header/>
+            <section>
+                <div className={stylesNav.navigation__section}>
+                    <Navigation/>
+                    <div className='wrapper__content'>
+                        <Route path={'/profile'}
+                               render={() => <MainContainer posts={mainPages.posts} addPost={addPost}/>}/>
+                        <Route path={'/dialogs'} render={() => <Dialogs dialogsUsers={dialogsPages.dialogsUsers}
+                                                                        dialogsMessages={dialogsPages.dialogsMessages}
+                                                                        addMessage={addMessage}
+                        />}/>
+                        <Route path={'/news'} render={() => <News/>}/>
+                        <Route path={'/music'} render={() => <Music/>}/>
+                        <Route path={'/settings'} render={() => <Settings/>}/>
                     </div>
-                </section>
-            </div>
-        </BrowserRouter>
+                </div>
+            </section>
+        </div>
     );
 }
 

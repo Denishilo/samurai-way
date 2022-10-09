@@ -12,6 +12,7 @@ export const Post = (props: PostType) => {
             <div className={styles.main_post}>
                 {props.message} like:{props.likesCount}
             </div>
+
         </>
 
     )
