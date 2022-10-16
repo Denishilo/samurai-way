@@ -8,19 +8,25 @@ import {PostType} from "../../redux/redux";
 
 
 type MainContainerTypeProps = {
-    posts: PostType[]
-    addPost: (newPost: string) => void
+    mainPages: {
+        posts: PostType[]
+        newPostText: string
+    }
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
+
 }
 
 export const MainContainer = (props: MainContainerTypeProps) => {
-    const {posts, addPost} = props
+    const { addPost,updateNewPostText} = props
+    const {posts, newPostText} = props.mainPages
 
     return (
         <div className={styles.main__container}>
             <MainBackground/>
             <MainAvatar/>
             <MainDescription/>
-            <Posts posts={posts} addPost={addPost}/>
+            <Posts posts={posts} addPost={addPost} newPostText={newPostText} updateNewPostText={updateNewPostText}/>
         </div>
     )
 }

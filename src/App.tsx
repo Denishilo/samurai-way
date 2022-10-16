@@ -9,24 +9,33 @@ import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {DialogItemTypeProps, DialogUserTypeProps, PostType} from "./redux/redux";
+import {
+    DialogItemTypeProps,
+    DialogUserTypeProps,
+    PostType
+} from "./redux/redux";
 
 export type AppTypeProps = {
     state: {
         dialogsPages: {
             dialogsUsers: DialogUserTypeProps[]
             dialogsMessages: DialogItemTypeProps[]
+            newTextMessage: string
         },
         mainPages: {
             posts: PostType[]
+            newPostText: string
+
         }
     }
-    addMessage: (newMessage: string) => void
-    addPost: (newPost: string) => void
+    addMessage: () => void
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
+    updateNewTextMessage: (newMessage: string) => void
 }
 
 const App = (props: AppTypeProps) => {
-    const {addMessage, addPost} = props
+    const {addMessage, addPost, updateNewPostText, updateNewTextMessage} = props
     const {dialogsPages, mainPages} = props.state
 
     return (
@@ -37,10 +46,14 @@ const App = (props: AppTypeProps) => {
                     <Navigation/>
                     <div className='wrapper__content'>
                         <Route path={'/profile'}
-                               render={() => <MainContainer posts={mainPages.posts} addPost={addPost}/>}/>
-                        <Route path={'/dialogs'} render={() => <Dialogs dialogsUsers={dialogsPages.dialogsUsers}
-                                                                        dialogsMessages={dialogsPages.dialogsMessages}
+                               render={() => <MainContainer
+                                   mainPages={mainPages}
+                                   addPost={addPost}
+                                   updateNewPostText={updateNewPostText}/>}/>
+
+                        <Route path={'/dialogs'} render={() => <Dialogs dialogsPages={dialogsPages}
                                                                         addMessage={addMessage}
+                                                                        updateNewTextMessage={updateNewTextMessage}
                         />}/>
                         <Route path={'/news'} render={() => <News/>}/>
                         <Route path={'/music'} render={() => <Music/>}/>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent,MouseEvent} from "react";
 import styles from './Dialogs.module.css'
 import {DialogUser} from "./DialogUser/DialogUser";
 import {DialogItem} from "./DialogItem/DialogItem";
@@ -6,24 +6,29 @@ import {DialogItemTypeProps, DialogUserTypeProps} from "../../redux/redux";
 
 
 type DialogsTypeProps = {
-    dialogsUsers: DialogUserTypeProps[]
-    dialogsMessages: DialogItemTypeProps[]
-    addMessage:(newMessage: string)=>void
+    dialogsPages: {
+        dialogsUsers: DialogUserTypeProps[]
+        dialogsMessages: DialogItemTypeProps[]
+        newTextMessage: string
+    }
+    addMessage: () => void
+    updateNewTextMessage: (newMessage: string) => void
 }
 
 export const Dialogs = (props: DialogsTypeProps) => {
-    const {dialogsUsers, dialogsMessages,addMessage} = props
+    const {addMessage, updateNewTextMessage} = props
+    const {dialogsUsers, dialogsMessages, newTextMessage} = props.dialogsPages
+
 
     let dialogsUsersElements = dialogsUsers.map(d => <DialogUser name={d.name} id={d.id}/>)
     let dialogsMessagesElements = dialogsMessages.map(m => <DialogItem message={m.message} id={m.id}/>)
 
-    const textAreaValue = React.createRef<HTMLTextAreaElement>()
+    const onClickAddMessageHandler = () => {
+            addMessage()
+    }
 
-    const onClickHandler = () => {
-        if(textAreaValue.current?.value){
-            addMessage(textAreaValue.current.value)
-            textAreaValue.current.value=''
-        }
+    const onChangeTextMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        updateNewTextMessage(e.currentTarget.value)
     }
 
     return (
@@ -33,8 +38,8 @@ export const Dialogs = (props: DialogsTypeProps) => {
             </div>
             <div className={styles.dialogs__messages}>
                 {dialogsMessagesElements}
-                <textarea ref={textAreaValue}></textarea>
-                <button onClick={onClickHandler}>send message</button>
+                <textarea onChange={onChangeTextMessage} value={newTextMessage}/>
+                <button onClick={onClickAddMessageHandler}>send message</button>
             </div>
 
         </div>
