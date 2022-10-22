@@ -4,7 +4,7 @@ import {Posts} from "./Posts/Posts";
 import {MainBackground} from "./MainBackground/MainBackground";
 import {MainAvatar} from "./MainAvatar/MainAvatar";
 import {MainDescription} from "./MainDescription/MainDescription";
-import {PostType} from "../../redux/redux";
+import {actionDispatchType, PostType} from "../../redux/redux";
 
 
 type MainContainerTypeProps = {
@@ -12,13 +12,11 @@ type MainContainerTypeProps = {
         posts: PostType[]
         newPostText: string
     }
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
-
+    dispatch: (action: actionDispatchType) => void
 }
 
 export const MainContainer = (props: MainContainerTypeProps) => {
-    const { addPost,updateNewPostText} = props
+    const {dispatch} = props
     const {posts, newPostText} = props.mainPages
 
     return (
@@ -26,7 +24,7 @@ export const MainContainer = (props: MainContainerTypeProps) => {
             <MainBackground/>
             <MainAvatar/>
             <MainDescription/>
-            <Posts posts={posts} addPost={addPost} newPostText={newPostText} updateNewPostText={updateNewPostText}/>
+            <Posts posts={posts} dispatch={dispatch} newPostText={newPostText}/>
         </div>
     )
 }
