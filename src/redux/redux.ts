@@ -1,3 +1,6 @@
+import {addMessageActionCreatorAC, changeTextMessageAC, messageReducer} from "./message-reducer";
+import {addNewPostAC, changeTextPostAC, mainPagePostReducer} from "./mainPagePostReducer";
+
 export type DialogUserTypeProps = {
     name: string
     id: number
@@ -11,32 +14,35 @@ export type PostType = {
     message: string
     likesCount: number
 }
+
+export type dialogsPages = {
+    dialogsUsers: DialogUserTypeProps[]
+    dialogsMessages: DialogItemTypeProps[]
+    newTextMessage: string
+}
+export type mainPageType = {
+    posts: PostType[]
+    newPostText: string
+}
 export type StateTypeProps = {
-    dialogsPages: {
-        dialogsUsers: DialogUserTypeProps[]
-        dialogsMessages: DialogItemTypeProps[]
-        newTextMessage: string
-    },
-    mainPages: {
-        posts: PostType[]
-        newPostText: string
-    }
+    dialogsPages: dialogsPages
+    mainPages: mainPageType
 }
 
 export type storeType = {
-    _state: StateTypeProps,
-    _callSubscriber: () => void,
-    getState: () => void,
+    _state: StateTypeProps
+    _callSubscriber: () => void
+    getState: () => StateTypeProps
     dispatch: (action: actionDispatchType) => void
     updateNewPostText: (newText: string) => void
     subscribe: (observer: () => void) => void
 }
 
 export type actionDispatchType =
-    ReturnType<typeof addMessageActionCreator>
-    | ReturnType<typeof changeTextMessage>
-    | ReturnType<typeof addNewPost>
-    | ReturnType<typeof changeTextPost>
+    ReturnType<typeof addMessageActionCreatorAC>
+    | ReturnType<typeof changeTextMessageAC>
+    | ReturnType<typeof addNewPostAC>
+    | ReturnType<typeof changeTextPostAC>
 
 export let store: storeType = {
 
@@ -73,34 +79,9 @@ export let store: storeType = {
     },
 
     dispatch(action) {
-        if (action.type === 'ADD-MESSAGE') {
-            if (this._state.dialogsPages.newTextMessage) {
-                const newMessage: DialogItemTypeProps = {id: 6, message: this._state.dialogsPages.newTextMessage};
-                this._state.dialogsPages.dialogsMessages = [...this._state.dialogsPages.dialogsMessages, newMessage]
-                this._state.dialogsPages.newTextMessage = ''
-                this._callSubscriber()
-            }
-        }
-        if (action.type === 'UPDATE-TEXT-MESSAGE') {
-            if (action.newMessage.trim() !== '') {
-                this._state.dialogsPages.newTextMessage = action.newMessage
-                this._callSubscriber()
-            }
-        }
-        if (action.type === 'ADD-POST') {
-            if (this._state.mainPages.newPostText) {
-                const newPost: PostType = {id: 3, message: this._state.mainPages.newPostText, likesCount: 0}
-                this._state.mainPages.posts = [...this._state.mainPages.posts, newPost]
-                this._state.mainPages.newPostText = ''
-                this._callSubscriber()
-            }
-        }
-        if (action.type === 'CHANGE-TEXT-POST') {
-            if (action.newText.trim() !== '') {
-                this._state.mainPages.newPostText = action.newText
-                this._callSubscriber()
-            }
-        }
+        this._state.dialogsPages = messageReducer(this._state.dialogsPages, action)
+        this._state.mainPages = mainPagePostReducer(this._state.mainPages,action)
+        this._callSubscriber()
     },
     updateNewPostText(newText: string) {
         if (newText.trim() !== '') {
@@ -113,28 +94,6 @@ export let store: storeType = {
     }
 }
 
-export const addMessageActionCreator = () => {
-    return {
-        type: 'ADD-MESSAGE'
-    } as const
-}
 
-export const changeTextMessage = (value: string) => {
-    return {
-        type: 'UPDATE-TEXT-MESSAGE',
-        newMessage: value
-    } as const
-}
 
-export const addNewPost = () => {
-    return {
-        type: 'ADD-POST'
-    } as const
-}
 
-export const changeTextPost = (newText: string) => {
-    return {
-        type: 'CHANGE-TEXT-POST',
-        newText,
-    } as const
-}

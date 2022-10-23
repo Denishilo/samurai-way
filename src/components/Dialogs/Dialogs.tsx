@@ -1,14 +1,13 @@
-import React, {ChangeEvent, MouseEvent} from "react";
+import React, {ChangeEvent} from "react";
 import styles from './Dialogs.module.css'
 import {DialogUser} from "./DialogUser/DialogUser";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {
     actionDispatchType,
-    addMessageActionCreator,
-    changeTextMessage,
     DialogItemTypeProps,
     DialogUserTypeProps
 } from "../../redux/redux";
+import {addMessageActionCreatorAC, changeTextMessageAC} from "../../redux/message-reducer";
 
 
 type DialogsTypeProps = {
@@ -31,11 +30,11 @@ export const Dialogs = (props: DialogsTypeProps) => {
     let dialogsMessagesElements = dialogsMessages.map(m => <DialogItem message={m.message} id={m.id}/>)
 
     const onClickAddMessageHandler = () => {
-        dispatch(addMessageActionCreator())
+        dispatch(addMessageActionCreatorAC())
     }
 
     const onChangeTextMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(changeTextMessage(e.currentTarget.value))
+        dispatch(changeTextMessageAC(e.currentTarget.value))
     }
 
     return (

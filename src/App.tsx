@@ -18,7 +18,8 @@ export type AppTypeProps = {
 const App = (props: AppTypeProps) => {
 
     const {dispatch} = props.state
-    const {dialogsPages, mainPages} = props.state._state
+    const state = props.state.getState();
+    const {dialogsPages, mainPages} = state
 
     return (
         <div className='wrapper'>

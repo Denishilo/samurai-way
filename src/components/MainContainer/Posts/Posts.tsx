@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from "react";
 import styles from './Posts.module.css'
 import {Post} from "./Post/post";
-import {actionDispatchType, addNewPost, changeTextPost, PostType} from "../../../redux/redux";
+import {actionDispatchType, PostType} from "../../../redux/redux";
+import {addNewPostAC, changeTextPostAC} from "../../../redux/mainPagePostReducer";
 
 
 type PostTypeProps = {
@@ -15,11 +16,11 @@ export const Posts = (props: PostTypeProps) => {
 
 
     const onClickAddPostHandler = () => {
-        dispatch(addNewPost())
+        dispatch(addNewPostAC())
     }
 
     const onChangeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(changeTextPost(e.currentTarget.value))
+        dispatch(changeTextPostAC(e.currentTarget.value))
     }
 
     let postDataElements = posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
