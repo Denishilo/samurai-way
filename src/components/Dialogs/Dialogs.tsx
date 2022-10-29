@@ -2,39 +2,27 @@ import React, {ChangeEvent} from "react";
 import styles from './Dialogs.module.css'
 import {DialogUser} from "./DialogUser/DialogUser";
 import {DialogItem} from "./DialogItem/DialogItem";
-import {
-    actionDispatchType,
-    DialogItemTypeProps,
-    DialogUserTypeProps
-} from "../../redux/store";
-import {addMessageActionCreatorAC, changeTextMessageAC} from "../../redux/message-reducer";
-
+import {dialogsPages,} from "../../redux/store";
 
 type DialogsTypeProps = {
-    dialogsPages: {
-        dialogsUsers: DialogUserTypeProps[]
-        dialogsMessages: DialogItemTypeProps[]
-        newTextMessage: string
-    }
-    dispatch: (action: actionDispatchType) => void
+    dialogsPages: dialogsPages
+    onClickAddMessage:()=>void
+    onChangeTextMessage:(newTextMessage:string)=>void
 }
 
-
 export const Dialogs = (props: DialogsTypeProps) => {
-    const {dispatch} = props
-
     const {dialogsUsers, dialogsMessages, newTextMessage} = props.dialogsPages
-
+    const {onClickAddMessage,onChangeTextMessage} = props
 
     let dialogsUsersElements = dialogsUsers.map(d => <DialogUser name={d.name} id={d.id}/>)
     let dialogsMessagesElements = dialogsMessages.map(m => <DialogItem message={m.message} id={m.id}/>)
 
     const onClickAddMessageHandler = () => {
-        dispatch(addMessageActionCreatorAC())
+        onClickAddMessage()
     }
 
-    const onChangeTextMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(changeTextMessageAC(e.currentTarget.value))
+    const onChangeTextMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        onChangeTextMessage(e.currentTarget.value)
     }
 
     return (
@@ -44,7 +32,7 @@ export const Dialogs = (props: DialogsTypeProps) => {
             </div>
             <div className={styles.dialogs__messages}>
                 {dialogsMessagesElements}
-                <textarea onChange={onChangeTextMessage} value={newTextMessage}/>
+                <textarea onChange={onChangeTextMessageHandler} value={newTextMessage}/>
                 <button onClick={onClickAddMessageHandler}>send message</button>
             </div>
 
