@@ -1,11 +1,10 @@
 import React from "react";
 import styles from './MainContainer.module.css'
-import {Posts} from "./Posts/Posts";
 import {MainBackground} from "./MainBackground/MainBackground";
 import {MainAvatar} from "./MainAvatar/MainAvatar";
 import {MainDescription} from "./MainDescription/MainDescription";
-import {actionDispatchType, PostType} from "../../redux/redux";
-
+import {actionDispatchType, PostType} from "../../redux/store";
+import {PostsContainer} from "./PostsContainer/PostsContainer";
 
 type MainContainerTypeProps = {
     mainPages: {
@@ -16,15 +15,14 @@ type MainContainerTypeProps = {
 }
 
 export const MainContainer = (props: MainContainerTypeProps) => {
-    const {dispatch} = props
-    const {posts, newPostText} = props.mainPages
+    const {mainPages, dispatch} = props
 
     return (
         <div className={styles.main__container}>
             <MainBackground/>
             <MainAvatar/>
             <MainDescription/>
-            <Posts posts={posts} dispatch={dispatch} newPostText={newPostText}/>
+            <PostsContainer mainPages={mainPages} dispatch={dispatch}/>
         </div>
     )
 }

@@ -6,7 +6,7 @@ import {
     actionDispatchType,
     DialogItemTypeProps,
     DialogUserTypeProps
-} from "../../redux/redux";
+} from "../../redux/store";
 import {addMessageActionCreatorAC, changeTextMessageAC} from "../../redux/message-reducer";
 
 

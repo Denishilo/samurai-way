@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './DialogUser.module.css'
 import {NavLink} from "react-router-dom";
-import {DialogUserTypeProps} from "../../../redux/redux";
+import {DialogUserTypeProps} from "../../../redux/store";
 
 
 export const DialogUser = (props: DialogUserTypeProps) => {

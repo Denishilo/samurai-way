@@ -9,16 +9,19 @@ import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {storeType} from "./redux/redux";
+import {ReduxStoreType} from "./redux/redux-store";
+import {Dispatch} from "redux";
 
 export type AppTypeProps = {
-    state: storeType
+    state: ReduxStoreType
+    dispatch: Dispatch
 }
 
 const App = (props: AppTypeProps) => {
+    const {dispatch} = props;
 
-    const {dispatch} = props.state
-    const state = props.state.getState();
+    const state = props.state;
+
     const {dialogsPages, mainPages} = state
 
     return (

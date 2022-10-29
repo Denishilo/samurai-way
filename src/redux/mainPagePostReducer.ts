@@ -1,9 +1,16 @@
-import {actionDispatchType, mainPageType, PostType} from "./redux";
+import {actionDispatchType, mainPageType, PostType} from "./store";
 
 const ADD_POST = 'ADD-POST';
 const CHANGE_TEXT_POST = 'CHANGE-TEXT-POST';
 
-export const mainPagePostReducer = (state: mainPageType, action: actionDispatchType) => {
+const initialState:mainPageType = {
+    posts: <PostType[]>[
+        {id: 1, message: 'Hi! how are you?', likesCount: 1},
+        {id: 2, message: 'Im fine, thank you, and you?', likesCount: 4},
+    ],
+    newPostText: '',
+}
+export const mainPagePostReducer = (state: mainPageType=initialState, action: actionDispatchType): mainPageType => {
     switch (action.type) {
         case ADD_POST:
             if (state.newPostText) {

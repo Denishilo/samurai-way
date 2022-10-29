@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './DialogItem.module.css'
-import {DialogItemTypeProps} from "../../../redux/redux";
+import {DialogItemTypeProps} from "../../../redux/store";
 
 export const DialogItem = (props: DialogItemTypeProps) => {
     return (
