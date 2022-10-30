@@ -5,6 +5,7 @@ import {MainAvatar} from "./MainAvatar/MainAvatar";
 import {MainDescription} from "./MainDescription/MainDescription";
 import {PostsContainer} from "./PostsContainer/PostsContainer";
 
+
 export const MainContainer = () => {
     return (
         <div className={styles.main__container}>

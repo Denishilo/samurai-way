@@ -1,16 +1,28 @@
-import {actionDispatchType, mainPageType, PostType} from "./store";
-
 const ADD_POST = 'ADD-POST';
 const CHANGE_TEXT_POST = 'CHANGE-TEXT-POST';
 
-const initialState:mainPageType = {
+export type PostType = {
+    id: number
+    message: string
+    likesCount: number
+}
+export type mainPageType = {
+    posts: PostType[]
+    newPostText: string
+}
+
+export type actionDispatchType =
+    | ReturnType<typeof addNewPostAC>
+    | ReturnType<typeof changeTextPostAC>
+
+const initialState: mainPageType = {
     posts: <PostType[]>[
         {id: 1, message: 'Hi! how are you?', likesCount: 1},
         {id: 2, message: 'Im fine, thank you, and you?', likesCount: 4},
     ],
     newPostText: '',
 }
-export const mainPagePostReducer = (state: mainPageType=initialState, action: actionDispatchType): mainPageType => {
+export const mainPagePostReducer = (state: mainPageType = initialState, action: actionDispatchType): mainPageType => {
     switch (action.type) {
         case ADD_POST:
             if (state.newPostText) {

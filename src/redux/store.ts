@@ -1,26 +1,26 @@
-import {addMessageActionCreatorAC, changeTextMessageAC, messageReducer} from "./message-reducer";
-import {addNewPostAC, changeTextPostAC, mainPagePostReducer} from "./mainPagePostReducer";
+import {addMessageActionCreatorAC, changeTextMessageAC} from "./message-reducer";
+import {addNewPostAC, changeTextPostAC} from "./mainPagePostReducer";
 
-export type DialogUserTypeProps = {
+type DialogUserTypeProps = {
     name: string
     id: number
 }
-export type DialogItemTypeProps = {
+type DialogItemTypeProps = {
     id: number
     message: string
 }
-export type PostType = {
+type PostType = {
     id: number
     message: string
     likesCount: number
 }
 
-export type dialogsPages = {
+type dialogsPages = {
     dialogsUsers: DialogUserTypeProps[]
     dialogsMessages: DialogItemTypeProps[]
     newTextMessage: string
 }
-export type mainPageType = {
+type mainPageType = {
     posts: PostType[]
     newPostText: string
 }
@@ -37,8 +37,7 @@ export type storeType = {
     updateNewPostText: (newText: string) => void
     subscribe: (observer: () => void) => void
 }
-
-export type actionDispatchType =
+type actionDispatchType =
     ReturnType<typeof addMessageActionCreatorAC>
     | ReturnType<typeof changeTextMessageAC>
     | ReturnType<typeof addNewPostAC>
@@ -78,11 +77,11 @@ export let store: storeType = {
     _callSubscriber() {
     },
 
-    dispatch(action) {
-        this._state.dialogsPages = messageReducer(this._state.dialogsPages, action)
-        this._state.mainPages = mainPagePostReducer(this._state.mainPages,action)
-        this._callSubscriber()
-    },
+    // dispatch(action) {
+    //     // this._state.dialogsPages = messageReducer(this._state.dialogsPages, action)
+    //     // this._state.mainPages = mainPagePostReducer(this._state.mainPages,action)
+    //     this._callSubscriber()
+    // },
     updateNewPostText(newText: string) {
         if (newText.trim() !== '') {
             this._state.mainPages.newPostText = newText

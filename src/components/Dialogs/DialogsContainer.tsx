@@ -1,26 +1,34 @@
 import React from "react";
-import styles from './Dialogs.module.css'
-import {addMessageActionCreatorAC, changeTextMessageAC} from "../../redux/message-reducer";
+import {addMessageActionCreatorAC, changeTextMessageAC, dialogsPages} from "../../redux/message-reducer";
 import {Dialogs} from "./Dialogs";
-import {StoreContext} from "../../StoreContext";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
 
-export const DialogsContainer = () => {
-    return <StoreContext.Consumer>
-        {(store) => {
-            const onClickAddMessage = () => {
-                store.dispatch(addMessageActionCreatorAC())
-            }
-            const onChangeTextMessage = (newTextMessage: string) => {
-                store.dispatch(changeTextMessageAC(newTextMessage))
-            }
-            return (
-                <div className={styles.dialogs__wrapper}>
-                    <Dialogs dialogsPages={store.getState().dialogsPages} onClickAddMessage={onClickAddMessage}
-                             onChangeTextMessage={onChangeTextMessage}/>
-                </div>
-            )
-        }
-
-        }
-    </StoreContext.Consumer>
+type MapStateType = {
+    dialogPages: dialogsPages
 }
+type MapDispatchType = {
+    onClickAddMessage: () => void
+    onChangeTextMessage: (newTextMessage: string) => void
+}
+
+export type  AllDialogsPropsType = MapStateType & MapDispatchType
+
+const mapStateToProps = (state: MapStateType): MapStateType => {
+    return {
+        dialogPages: state.dialogPages
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
+    return {
+        onClickAddMessage: () => {
+            dispatch(addMessageActionCreatorAC())
+        },
+        onChangeTextMessage: (newTextMessage: string) => {
+            dispatch(changeTextMessageAC(newTextMessage))
+        }
+    }
+}
+
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);

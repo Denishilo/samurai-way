@@ -1,9 +1,24 @@
-import {actionDispatchType, DialogItemTypeProps, dialogsPages, DialogUserTypeProps} from "./store";
-
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_TEXT_MESSAGE = 'UPDATE-TEXT-MESSAGE';
 
-const initialState:dialogsPages = {
+export type DialogUserTypeProps = {
+    name: string
+    id: number
+}
+export type DialogItemTypeProps = {
+    id: number
+    message: string
+}
+export type dialogsPages = {
+    dialogsUsers: DialogUserTypeProps[]
+    dialogsMessages: DialogItemTypeProps[]
+    newTextMessage: string
+}
+type actionDispatchType =
+    ReturnType<typeof addMessageActionCreatorAC>
+    | ReturnType<typeof changeTextMessageAC>
+
+const initialState: dialogsPages = {
     dialogsUsers: <DialogUserTypeProps[]>[
         {id: 1, name: 'Denis'},
         {id: 2, name: 'Kseniya'},

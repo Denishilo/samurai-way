@@ -1,17 +1,11 @@
 import React, {ChangeEvent} from "react";
 import styles from './Posts.module.css'
 import {Post} from "./Post/post";
-import {PostType} from "../../../redux/store";
+import {AllPostsPropsType} from "./PostsContainer";
 
-type PostTypeProps = {
-    posts: PostType[]
-    newPostText: string
-    addPostHandler: () => void
-    changeTextHandler: (value: string) => void
-}
-
-export const Posts = (props: PostTypeProps) => {
-    const {posts, newPostText, addPostHandler, changeTextHandler} = props
+export const Posts = (props: AllPostsPropsType) => {
+    const {addPostHandler, changeTextHandler} = props
+    const {posts, newPostText} = props.mainPages
 
     const onClickAddPostHandler = () => {
         addPostHandler()
