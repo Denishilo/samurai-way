@@ -8,22 +8,9 @@ import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {ReduxStoreType} from "./redux/redux-store";
-import {Dispatch} from "redux";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
-export type AppTypeProps = {
-    state: ReduxStoreType
-    dispatch: Dispatch
-}
-
-const App = (props: AppTypeProps) => {
-    const {dispatch} = props;
-
-    const state = props.state;
-
-    const {dialogsPages, mainPages} = state
-
+const App = () => {
     return (
         <div className='wrapper'>
             <Header/>
@@ -32,13 +19,8 @@ const App = (props: AppTypeProps) => {
                     <Navigation/>
                     <div className='wrapper__content'>
                         <Route path={'/profile'}
-                               render={() => <MainContainer
-                                   mainPages={mainPages}
-                                   dispatch={dispatch.bind(props.state)}
-                               />}/>
-
-                        <Route path={'/dialogs'} render={() => <DialogsContainer dialogsPages={dialogsPages}
-                                                                        dispatch={dispatch.bind(props.state)}/>}/>
+                               render={() => <MainContainer/>}/>
+                        <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                         <Route path={'/news'} render={() => <News/>}/>
                         <Route path={'/music'} render={() => <Music/>}/>
                         <Route path={'/settings'} render={() => <Settings/>}/>

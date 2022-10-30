@@ -1,15 +1,18 @@
 import React from 'react';
 import './index.css'
-import {ReduxStoreType, store} from "./redux/redux-store";
+import {store} from "./redux/redux-store";
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
+import {Provider} from "./StoreContext";
 
-const renderTree = (state:ReduxStoreType) => {
+const renderTree = () => {
     ReactDOM.render(
         <BrowserRouter>
-            <App state={state} dispatch={store.dispatch.bind(store)}/>
+            <Provider store={store}>
+                <App/>
+            </Provider>
         </BrowserRouter>
         ,
         document.getElementById('root')
@@ -17,8 +20,7 @@ const renderTree = (state:ReduxStoreType) => {
 }
 
 store.subscribe(()=>{
-    let state = store.getState()
-    renderTree(state)
+    renderTree()
 })
 
-renderTree(store.getState())
+renderTree()

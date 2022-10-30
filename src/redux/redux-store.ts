@@ -8,5 +8,4 @@ let reducers = combineReducers({
 })
 
 export let store = createStore(reducers)
-
-export type ReduxStoreType = ReturnType<typeof  reducers>
+export type StoreType = typeof store

@@ -1,32 +1,30 @@
 import React from "react";
 import styles from './Posts.module.css'
-
-import {actionDispatchType, mainPageType} from "../../../redux/store";
 import {addNewPostAC, changeTextPostAC} from "../../../redux/mainPagePostReducer";
 import {Posts} from "./Posts";
+import {StoreContext} from "../../../StoreContext";
 
+export const PostsContainer = () => {
+    return <StoreContext.Consumer>
+        {(store) => {
+            const addPostHandler = () => {
+                store.dispatch(addNewPostAC())
+            }
 
-type PostTypeProps = {
-    mainPages: mainPageType
-    dispatch: (action: actionDispatchType) => void
-}
+            const changeTextHandler = (newText: string) => {
+                store.dispatch(changeTextPostAC(newText))
+            }
 
-export const PostsContainer = (props: PostTypeProps) => {
-    const {dispatch} = props
-    const {posts, newPostText} = props.mainPages
+            return (
+                <div className={styles.posts}>
+                    <Posts posts={store.getState().mainPages.posts} newPostText={store.getState().mainPages.newPostText}
+                           addPostHandler={addPostHandler}
+                           changeTextHandler={changeTextHandler}/>
+                </div>
+            )
+        }
 
-    const addPostHandler = () => {
-        dispatch(addNewPostAC())
-    }
+        }
+    </StoreContext.Consumer>
 
-    const changeTextHandler = (newText: string) => {
-        dispatch(changeTextPostAC(newText))
-    }
-
-    return (
-        <div className={styles.posts}>
-            <Posts posts={posts} newPostText={newPostText} addPostHandler={addPostHandler}
-                   changeTextHandler={changeTextHandler}/>
-        </div>
-    )
 }
