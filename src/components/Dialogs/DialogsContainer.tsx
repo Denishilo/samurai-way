@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 
 type MapStateType = {
-    dialogPages: dialogsPages
+    dialogsPages: dialogsPages
 }
 type MapDispatchType = {
     onClickAddMessage: () => void
@@ -16,7 +16,7 @@ export type  AllDialogsPropsType = MapStateType & MapDispatchType
 
 const mapStateToProps = (state: MapStateType): MapStateType => {
     return {
-        dialogPages: state.dialogPages
+        dialogsPages: state.dialogsPages
     }
 }
 

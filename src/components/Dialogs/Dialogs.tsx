@@ -5,7 +5,7 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {AllDialogsPropsType} from "./DialogsContainer";
 
 export const Dialogs = (props: AllDialogsPropsType) => {
-    const {dialogsUsers, dialogsMessages, newTextMessage} = props.dialogPages
+    const {dialogsUsers, dialogsMessages, newTextMessage} = props.dialogsPages
     const {onClickAddMessage, onChangeTextMessage} = props
 
     let dialogsUsersElements = dialogsUsers.map(d => <DialogUser name={d.name} id={d.id}/>)
