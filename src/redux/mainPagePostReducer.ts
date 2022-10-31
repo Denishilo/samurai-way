@@ -27,8 +27,7 @@ export const mainPagePostReducer = (state: mainPageType = initialState, action: 
         case ADD_POST: {
             if (state.newPostText) {
                 const newPost: PostType = {id: 3, message: state.newPostText, likesCount: 0}
-                state.newPostText = ''
-                return {...state, posts: [...state.posts, newPost]}
+                return {...state, posts: [...state.posts, newPost], newPostText: ''}
             }
             return state
         }
