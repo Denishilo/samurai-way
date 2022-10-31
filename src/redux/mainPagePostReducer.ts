@@ -24,16 +24,18 @@ const initialState: mainPageType = {
 }
 export const mainPagePostReducer = (state: mainPageType = initialState, action: actionDispatchType): mainPageType => {
     switch (action.type) {
-        case ADD_POST:
+        case ADD_POST: {
             if (state.newPostText) {
                 const newPost: PostType = {id: 3, message: state.newPostText, likesCount: 0}
-                state.posts = [...state.posts, newPost]
                 state.newPostText = ''
+                return {...state, posts: [...state.posts, newPost]}
             }
             return state
+        }
+
         case CHANGE_TEXT_POST:
             if (action.newText.trim() !== '') {
-                state.newPostText = action.newText
+                return {...state, newPostText: action.newText}
             }
             return state
         default:

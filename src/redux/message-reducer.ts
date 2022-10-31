@@ -40,13 +40,13 @@ export const messageReducer = (state: dialogsPages = initialState, action: actio
         case ADD_MESSAGE:
             if (state.newTextMessage) {
                 const newMessage: DialogItemTypeProps = {id: 6, message: state.newTextMessage};
-                state.dialogsMessages = [...state.dialogsMessages, newMessage]
-                state.newTextMessage = ''
+                state.newTextMessage = '';
+                return {...state, dialogsMessages: [...state.dialogsMessages, newMessage]}
             }
             return state
         case UPDATE_TEXT_MESSAGE:
             if (action.newMessage.trim() !== '') {
-                state.newTextMessage = action.newMessage
+                return {...state, newTextMessage: action.newMessage}
             }
             return state
         default:
