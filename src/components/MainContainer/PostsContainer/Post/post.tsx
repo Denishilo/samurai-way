@@ -1,5 +1,6 @@
 import React from "react";
 import styles from './Post.module.css'
+import like from '../../../../img/like.svg'
 
 type PostType = {
     message: string
@@ -9,8 +10,13 @@ type PostType = {
 export const Post = (props: PostType) => {
     return (
         <>
-            <div className={styles.main_post}>
-                {props.message} like:{props.likesCount}
+            <div className={styles.postWrapper}>
+                <div className={styles.postMessage}>
+                    {props.message}
+                </div>
+                <div className={styles.postLike}>
+                    <img className={styles.postLike_img} src={like} alt="like"/>{props.likesCount}
+                </div>
             </div>
 
         </>

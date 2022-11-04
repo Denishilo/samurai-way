@@ -15,13 +15,21 @@ export const Posts = (props: AllPostsPropsType) => {
         changeTextHandler(e.currentTarget.value)
     }
 
-    let postDataElements = posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+    let postDataElements = posts.map((p,i) => <Post key={i} message={p.message} likesCount={p.likesCount}/>)
 
     return (
         <div className={styles.posts}>
             {postDataElements}
-            <textarea onChange={onChangeTextHandler} value={newPostText}/>
-            <button onClick={onClickAddPostHandler}>add post</button>
+            <div className={styles.sendForm}>
+                <textarea
+                    className={styles.textarea}
+                    title={'Shift+Enter for send'}
+                    placeholder={'Type a new post'}
+                    value={newPostText}
+                    onChange={onChangeTextHandler}
+                />
+                <button className={styles.button} onClick={onClickAddPostHandler}>Add post</button>
+            </div>
         </div>
     )
 }

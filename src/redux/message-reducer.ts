@@ -27,11 +27,11 @@ const initialState: dialogsPages = {
         {id: 5, name: 'Svetlana'},
     ],
     dialogsMessages: <DialogItemTypeProps[]>[
-        {id: 1, message: 'Hi'},
-        {id: 2, message: 'How are you\''},
+        {id: 1, message: 'Hello!'},
+        {id: 2, message: 'How are you?'},
         {id: 3, message: 'Good'},
         {id: 4, message: 'I am study at quarter to 10 p.m.'},
-        {id: 5, message: 'Great work'},
+        {id: 5, message: 'Great work!'},
     ],
     newTextMessage: '',
 }

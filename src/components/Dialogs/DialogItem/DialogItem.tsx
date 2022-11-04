@@ -4,6 +4,6 @@ import {DialogItemTypeProps} from "../../../redux/message-reducer";
 
 export const DialogItem = (props: DialogItemTypeProps) => {
     return (
-        <div className={styles.dialogs__item}>{props.message}</div>
+        <div className={styles.dialogsItem}>{props.message}</div>
     )
 }

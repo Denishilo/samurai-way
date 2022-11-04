@@ -1,0 +1,22 @@
+.postWrapper{
+    display: flex;
+    align-items: baseline;
+
+}
+
+.postMessage{
+    font-size: 26px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    background: #F5F7FB;
+    padding: 15px;
+    border-radius: 10px;
+}
+.postLike{
+    font-size: 15px;
+}
+
+.postLike_img{
+    width: 20px;
+    height: 20px;
+}

@@ -1,0 +1,29 @@
+.usersWrapper{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.usersInfo{
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    background: #F5F7FB;
+    border-radius: 10px;
+}
+
+.userAvatar{
+    width: 150px;
+    height: 150px;
+}
+
+.button{
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    background:  #9DDADB;
+    padding: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}

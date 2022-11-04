@@ -1,4 +1,7 @@
-.dialogs__user {
+.dialogsUser {
     font-size: 1.6rem;
     margin-bottom: 1rem;
+    padding: 15px;
+    background: #F5F7FB;
+    border-radius: 10px;
 }

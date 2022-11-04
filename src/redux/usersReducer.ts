@@ -1,89 +1,66 @@
-
 type UserLocationType = {
-    country:string
-    city:string
+    country: string
+    city: string
 }
 
 export type UserType = {
-    id:number
-    fullName:string
-    status:string
-    followed:boolean
-    avatar:string
-    location:UserLocationType
+    id: number
+    fullName: string
+    status: string
+    followed: boolean
+    avatar: string
+    location: UserLocationType
 }
 
 export type initialStateType = {
-    users:UserType[]
+    users: UserType[]
 }
 
-type followType = {
-    type:'FOLLOW'
-    payload: {
-        id:number
-    }
-}
-
-type unFollowType = {
-    type:'UNFOLLOW',
-    payload: {
-        id:number
-    }
-}
 
 type setUsersType = {
-    type:'SET-USERS',
+    type: 'SET-USERS',
     payload: {
-        users:UserType[]
+        users: UserType[]
     }
 }
-type allUsersActionType = followType | unFollowType | setUsersType
+
+type changeFollowStatusType = {
+    type: 'CHANGE-FOLLOW-STATUS',
+    payload: {
+        id: number
+    }
+}
+type allUsersActionType = setUsersType | changeFollowStatusType
 
 const initialState: initialStateType = {
-    users:[]
+    users: []
 }
 
-export const UsersReducer = (state:initialStateType = initialState, action:allUsersActionType):initialStateType => {
+export const UsersReducer = (state: initialStateType = initialState, action: allUsersActionType): initialStateType => {
     switch (action.type) {
-        case "FOLLOW": {
-            return {...state, users: state.users.map(el=> el.id=== action.payload.id ? {...el, followed:true}: el)}
-        }
-        case "UNFOLLOW":
-            return {...state, users: state.users.map(el=> el.id=== action.payload.id ? {...el, followed:false}: el)}
-
         case "SET-USERS":
             return {...state, users: [...state.users, ...action.payload.users]}
 
+        case "CHANGE-FOLLOW-STATUS":
+            return {...state, users: state.users.map(el=>el.id===action.payload.id? {...el, followed:!el.followed}:el)}
         default:
-            return  state
-            // throw new Error('errorrrrrr')
+            return state
     }
-
 }
-
-export const followAC = (id:number) => {
+export const setUsersAC = (users: UserType[]) => {
     return {
-        type:'FOLLOW',
-        payload: {
-            id
-        }
-    } as const
-}
-
-export const unFollowAC =(id:number)=>{
-    return {
-        type:'UNFOLLOW',
-        payload: {
-            id
-        }
-    } as const
-}
-
-export const setUsersAC=(users:UserType[])=>{
-    return {
-        type:'SET-USERS',
+        type: 'SET-USERS',
         payload: {
             users
+        }
+    } as const
+}
+
+export const changeFollowStatusAC = (id: number) => {
+    return {
+        type: 'CHANGE-FOLLOW-STATUS',
+        payload:{
+            id
         }
     } as const
 }

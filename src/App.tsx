@@ -12,7 +12,6 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {MyPhoto} from "./components/Photos/MyPhoto";
 
-
 const App = () => {
     return (
         <div className='wrapper'>
@@ -28,13 +27,10 @@ const App = () => {
                         <Route path={'/news'} render={() => <News/>}/>
                         <Route path={'/music'} render={() => <Music/>}/>
                         <Route path={'/settings'} render={() => <Settings/>}/>
-
-
                     </div>
                 </div>
             </section>
         </div>
     );
 }
-
 export default App;

@@ -14,8 +14,6 @@ export const MainContainer = () => {
                 <MainAvatar/>
                 <MainDescription/>
             </div>
-
-
         </div>
     )
 }

@@ -17,8 +17,8 @@ export type actionDispatchType =
 
 const initialState: mainPageType = {
     posts: <PostType[]>[
-        {id: 1, message: 'Hi! how are you?', likesCount: 1},
-        {id: 2, message: 'Im fine, thank you, and you?', likesCount: 4},
+        {id: 1, message: 'Hello my friends', likesCount: 10},
+        {id: 2, message: 'How are you? I\'m study in IT-INCUBATOR!', likesCount: 4},
     ],
     newPostText: '',
 }
@@ -33,10 +33,9 @@ export const mainPagePostReducer = (state: mainPageType = initialState, action: 
         }
 
         case CHANGE_TEXT_POST:
-            if (action.newText.trim() !== '') {
+            // if (action.newText.trim() !== '') {
                 return {...state, newPostText: action.newText}
-            }
-            return state
+            // }
         default:
             return state
     }
