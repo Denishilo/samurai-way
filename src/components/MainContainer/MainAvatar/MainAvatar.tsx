@@ -1,11 +1,11 @@
 import React from "react";
 import styles from './MainAvatar.module.css'
+import avatar from '../../../img/Frame.svg'
 
 export const MainAvatar = () => {
     return (
         <div className={styles.main__avatar}>
-            MyPhoto
-            <img src="" alt="" className={styles.main__photo}/>
+            <img src={avatar} alt="avatar" className={styles.mainPhoto}/>
         </div>
     )
 }

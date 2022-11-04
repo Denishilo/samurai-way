@@ -1,12 +1,13 @@
 import {combineReducers, createStore} from "redux";
 import {messageReducer} from "./message-reducer";
 import {mainPagePostReducer} from "./mainPagePostReducer";
-import {useReducer} from "react";
+import {UsersReducer} from "./usersReducer";
+
 
 let rootReducer = combineReducers({
     dialogsPages: messageReducer,
     mainPages: mainPagePostReducer,
-    usersPage: useReducer,
+    usersPage: UsersReducer
 })
 
 export let store = createStore(rootReducer)

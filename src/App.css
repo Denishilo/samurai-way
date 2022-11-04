@@ -14,7 +14,8 @@ ul {
 }
 
 .wrapper__content {
-    min-width: 80%;
-    background: #FFEBD8;
+    border-radius: 10px;
+    width: 80%;
+    /*background: #FBF1E6*/
 }
 

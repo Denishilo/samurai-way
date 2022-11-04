@@ -4,8 +4,9 @@ import styles from './MainDescription.module.css'
 
 export const MainDescription = () => {
     return (
-        <div className={styles.main__description}>
-            Description
+        <div className={styles.mainDescription}>
+            <p className={styles.descriptionName}>Denis</p>
+            <p className={styles.descriptionLocation}>Minsk, Belarus</p>
         </div>
     )
 }

@@ -10,7 +10,7 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
-
+import {MyPhoto} from "./components/Photos/MyPhoto";
 
 
 const App = () => {
@@ -23,10 +23,13 @@ const App = () => {
                     <div className='wrapper__content'>
                         <Route path={'/profile'} render={() => <MainContainer/>}/>
                         <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                        <Route path={'/users'} render={() => <UsersContainer/>}/>
+                        <Route path={'/photo'} render={() => <MyPhoto/>}/>
                         <Route path={'/news'} render={() => <News/>}/>
                         <Route path={'/music'} render={() => <Music/>}/>
                         <Route path={'/settings'} render={() => <Settings/>}/>
-                        <Route path={'/users'} render={() => <UsersContainer/>}/>
+
+
                     </div>
                 </div>
             </section>

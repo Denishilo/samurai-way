@@ -1,3 +1,4 @@
+
 type UserLocationType = {
     country:string
     city:string
@@ -8,6 +9,7 @@ export type UserType = {
     fullName:string
     status:string
     followed:boolean
+    avatar:string
     location:UserLocationType
 }
 
@@ -22,7 +24,7 @@ type followType = {
     }
 }
 
-type unFollowAC = {
+type unFollowType = {
     type:'UNFOLLOW',
     payload: {
         id:number
@@ -35,25 +37,17 @@ type setUsersType = {
         users:UserType[]
     }
 }
-type allUsersActionType = followType | unFollowAC | setUsersType
-
+type allUsersActionType = followType | unFollowType | setUsersType
 
 const initialState: initialStateType = {
-    users: [
-        {id:1,followed:false, fullName: 'Denis', status: 'I am student', location:{country:'Belarus', city:'Minsk'}},
-        {id:1,followed:false,fullName: 'Kirill', status: 'I am boy', location:{country:'Belarus', city:'Minsk'}},
-        {id:1,followed:true,fullName: 'Arina', status: 'I am girl', location:{country:'Belarus', city:'Minsk'}},
-        {id:1,followed:false,fullName: 'Eugeniu', status: 'I am in the USA', location:{country:'USA', city:'New York'}},
-        {id:1,followed:true,fullName: 'Ksuysha', status: 'I am photographer', location:{country:'Belarus', city:'Minsk'}},
-        {id:1,followed:false,fullName: 'Alexandr', status: 'Be happy', location:{country:'Ukraine', city:'Kiev'}},
-    ]
+    users:[]
 }
 
-export const UsersReducer = (state:initialStateType, action:allUsersActionType):initialStateType => {
+export const UsersReducer = (state:initialStateType = initialState, action:allUsersActionType):initialStateType => {
     switch (action.type) {
-        case "FOLLOW":
+        case "FOLLOW": {
             return {...state, users: state.users.map(el=> el.id=== action.payload.id ? {...el, followed:true}: el)}
-
+        }
         case "UNFOLLOW":
             return {...state, users: state.users.map(el=> el.id=== action.payload.id ? {...el, followed:false}: el)}
 
@@ -62,11 +56,12 @@ export const UsersReducer = (state:initialStateType, action:allUsersActionType):
 
         default:
             return  state
+            // throw new Error('errorrrrrr')
     }
 
 }
 
-export const followAC =(id:number)=>{
+export const followAC = (id:number) => {
     return {
         type:'FOLLOW',
         payload: {

@@ -1,18 +1,38 @@
 .navigation__section {
     display: flex;
-}
-
-ul {
-    padding-left: 1.5rem;
+    font-family: Open Sans,sans-serif;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 25px;
+    color: #222222;
 }
 
 .navigation__content {
     min-width: 20%;
-    background: #F0F8FF;
+    display: flex;
 }
+
+.imgNavigation{
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+
+    margin-right: 20px;
+
+}
+.navigation__list{
+    padding-left: 2rem;
+}
+
+.navigation__link{
+
+}
+
 
 .active__link {
     font-weight: bold;
+
+
 }
 
 a {
@@ -20,7 +40,11 @@ a {
 }
 
 a:active {
-    color: black;
+    color: #222222;
+}
+
+a:visited{
+    color: #222222;
 }
 
 .navigation__link {
@@ -32,3 +56,4 @@ a:active {
 .navigation__link + .navigation__link {
     margin-top: 1.5rem;
 }
+

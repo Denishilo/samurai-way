@@ -1,23 +1,28 @@
-
 .header__container {
     height: 50px;
-    background: #F0F8FF;
+
     display: flex;
     align-items: center;
     padding: 10px;
+    margin: 40px 0px;
 
 }
 
 .header__logo_img {
-    max-width: 6rem;
-    max-height: 6rem;
+    width: 6rem;
+    height: 6rem;
     margin: 0 2rem 0 1rem;
 
 }
 
 .header__title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-family: Georgia, serif;
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 58px;
+
+    text-align: center;
+
+    color: #222222;
 }
