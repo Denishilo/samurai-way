@@ -5,7 +5,7 @@ type UserLocationType = {
 
 export type UserType = {
     id: number
-    fullName: string
+    name: string
     status: string
     followed: boolean
     avatar: string
