@@ -4,11 +4,11 @@ import {mainPagePostReducer} from "./mainPagePostReducer";
 import {UsersReducer} from "./usersReducer";
 
 
-let rootReducer = combineReducers({
+const rootReducer = combineReducers({
     dialogsPages: messageReducer,
     mainPages: mainPagePostReducer,
     usersPage: UsersReducer
 })
 
-export let store = createStore(rootReducer)
+export const store = createStore(rootReducer)
 export type rootReducerType = ReturnType<typeof rootReducer>

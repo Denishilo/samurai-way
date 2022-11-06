@@ -4,7 +4,7 @@ import stylesNav from './components/Navigation/Navigation.module.css';
 import {Header} from "./components/Header/Header";
 import {Navigation} from "./components/Navigation/Navigation";
 import {MainContainer} from "./components/MainContainer/MainContainer";
-import {Route} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
@@ -20,7 +20,7 @@ const App = () => {
                 <div className={stylesNav.navigation__section}>
                     <Navigation/>
                     <div className='wrapper__content'>
-                        {/*<Route path={'/'}  render={() => <MainContainer/>}/>*/}
+                        <Route path={'/'} render={() => <Redirect to={'/profile'}/>}/>
                         <Route path={'/profile'} render={() => <MainContainer/>}/>
                         <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                         <Route path={'/users'} render={() => <UsersContainer/>}/>

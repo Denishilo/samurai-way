@@ -13,7 +13,7 @@ type mapDispatchType = {
     setUsers: (users: UserType[]) => void
     changeFollowStatus:(userId: number) => void
 }
-export type allUsersPropsType = mapStateType & mapDispatchType
+export type AllUsersPropsType = mapStateType & mapDispatchType
 
 
 const mapStateToProps = (state: rootReducerType): mapStateType => {
@@ -32,4 +32,5 @@ const mapDispatchToProps = (dispatch: Dispatch):mapDispatchType => {
         }
     }
 }
+
 export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
