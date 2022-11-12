@@ -27,3 +27,17 @@
     font-weight: bold;
     cursor: pointer;
 }
+
+.selectedPage{
+    font-weight: bold;
+}
+
+.pages{
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+.spanPage{
+    padding-right: 5px;
+}
