@@ -14,7 +14,7 @@ export type UserType = {
 
 export type initialStateType = {
     users: UserType[]
-    pagesSize: number
+    pageSize: number
     totalUsersCount: number
     currentPage: number
 }
@@ -51,7 +51,7 @@ type allUsersActionType = setUsersType | changeFollowStatusType | ChangeCurrentP
 
 const initialState: initialStateType = {
     users: [],
-    pagesSize: 10,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1
 }
