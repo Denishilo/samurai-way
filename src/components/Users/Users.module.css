@@ -41,3 +41,11 @@
 .spanPage{
     padding-right: 5px;
 }
+
+.wrapperPreloader{
+    text-align: center;
+}
+.imgLoader{
+    width: 60px;
+    height: 60px;
+}

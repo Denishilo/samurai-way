@@ -1,11 +1,15 @@
 import React from "react";
 import styles from "./Users.module.css";
 import user1 from "../../img/users/user1.svg";
-import {initialStateType} from "../../redux/usersReducer";
+import { UserType} from "../../redux/usersReducer";
 
-type UsersPropsType = initialStateType & {
+type UsersPropsType = {
     onPageChanged:(pageNumber: number)=>void
     changeFollowStatus:(id:number)=>void
+    users: UserType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 export const Users =(props:UsersPropsType)=>{
