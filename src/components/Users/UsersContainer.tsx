@@ -1,12 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
 import {rootReducerType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
+
 import {
-    changeCurrentPageAC, changeFetchingValueAC,
-    changeFollowStatusAC,
-    setTotalUserCountAC,
-    setUsersAC,
+    changeCurrentPage, changeFetching,
+    changeFollowStatus,
+    setTotalUserCount,
+    setUsers,
     UserType
 } from "../../redux/usersReducer";
 import axios from "axios";
@@ -74,24 +74,4 @@ const mapStateToProps = (state: rootReducerType): mapStateType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchType => {
-    return {
-        setUsers: (users: UserType[]) => {
-            dispatch(setUsersAC(users))
-        },
-        changeFollowStatus: (userId: number) => {
-            dispatch(changeFollowStatusAC(userId))
-        },
-        changeCurrentPage: (value: number) => {
-            dispatch(changeCurrentPageAC(value))
-        },
-        setTotalUserCount: (totalCount: number) => {
-            dispatch(setTotalUserCountAC(totalCount))
-        },
-        changeFetching: () => {
-            dispatch(changeFetchingValueAC())
-        },
-    }
-}
-
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersComponent)
+export const UsersContainer = connect(mapStateToProps, {setUsers,changeFollowStatus,changeCurrentPage,setTotalUserCount,changeFetching})(UsersComponent)

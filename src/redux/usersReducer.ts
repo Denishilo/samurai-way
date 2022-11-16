@@ -82,7 +82,7 @@ export const UsersReducer = (state: initialStateType = initialState, action: all
             return state
     }
 }
-export const setUsersAC = (users: UserType[]) => {
+export const setUsers = (users: UserType[]) => {
     return {
         type: 'SET-USERS',
         payload: {
@@ -91,7 +91,7 @@ export const setUsersAC = (users: UserType[]) => {
     } as const
 }
 
-export const changeFollowStatusAC = (id: number) => {
+export const changeFollowStatus = (id: number) => {
     return {
         type: 'CHANGE-FOLLOW-STATUS',
         payload: {
@@ -100,7 +100,7 @@ export const changeFollowStatusAC = (id: number) => {
     } as const
 }
 
-export const changeCurrentPageAC = (value: number) => {
+export const changeCurrentPage = (value: number) => {
     return {
         type: 'CHANGE-CURRENT-PAGE',
         payload: {
@@ -109,7 +109,7 @@ export const changeCurrentPageAC = (value: number) => {
     }
 }
 
-export const setTotalUserCountAC = (count: number) => {
+export const setTotalUserCount = (count: number) => {
     return {
         type: 'SET-TOTAL-COUNT',
         payload: {
@@ -118,7 +118,7 @@ export const setTotalUserCountAC = (count: number) => {
     } as const
 }
 
-export const changeFetchingValueAC =()=> {
+export const changeFetching =()=> {
     return {
         type: 'TOGGLE-IS-FETCHING'
     } as const
