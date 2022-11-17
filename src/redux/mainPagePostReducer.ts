@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD-POST';
 const CHANGE_TEXT_POST = 'CHANGE-TEXT-POST';
+const SET_USER_PROFILE = "SET-USER-PROFILE"
+
 
 export type PostType = {
     id: number
@@ -9,11 +11,41 @@ export type PostType = {
 export type mainPageType = {
     posts: PostType[]
     newPostText: string
+    profile: null | ProfileInfoType
+}
+
+export type SocialType = {
+    [key: string]: null | string
+}
+
+export type ContactsType = {
+    github: SocialType
+    mainLink: SocialType
+    youtube: SocialType
+    facebook: SocialType,
+    website: SocialType,
+    vk: SocialType,
+    twitter: SocialType,
+    instagram: SocialType
+}
+export type PhotoType = {
+    small: string
+    large: string
+}
+export type ProfileInfoType = {
+    photos: PhotoType
+    contacts: ContactsType
+    aboutMe: string
+    fullName: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    userId: string
 }
 
 export type actionDispatchType =
-    | ReturnType<typeof addNewPostAC>
-    | ReturnType<typeof changeTextPostAC>
+    | ReturnType<typeof addNewPost>
+    | ReturnType<typeof changeTextPost>
+    | ReturnType<typeof setUserProfile>
 
 const initialState: mainPageType = {
     posts: <PostType[]>[
@@ -21,6 +53,7 @@ const initialState: mainPageType = {
         {id: 2, message: 'How are you? I\'m study in IT-INCUBATOR!', likesCount: 4},
     ],
     newPostText: '',
+    profile: null,
 }
 export const mainPagePostReducer = (state: mainPageType = initialState, action: actionDispatchType): mainPageType => {
     switch (action.type) {
@@ -31,25 +64,33 @@ export const mainPagePostReducer = (state: mainPageType = initialState, action: 
             }
             return state
         }
-
         case CHANGE_TEXT_POST:
-            // if (action.newText.trim() !== '') {
-                return {...state, newPostText: action.newText}
-            // }
+            return {...state, newPostText: action.newText}
+        case SET_USER_PROFILE:
+            return {...state, profile: action.payload.profile}
         default:
             return state
     }
 }
 
-export const addNewPostAC = () => {
+export const addNewPost = () => {
     return {
         type: ADD_POST
     } as const
 }
 
-export const changeTextPostAC = (newText: string) => {
+export const changeTextPost = (newText: string) => {
     return {
         type: CHANGE_TEXT_POST,
         newText,
+    } as const
+}
+
+export const setUserProfile = (profile: any) => {
+    return {
+        type: SET_USER_PROFILE,
+        payload: {
+            profile
+        }
     } as const
 }

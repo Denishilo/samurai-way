@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Users.module.css";
 import user1 from "../../img/users/user1.svg";
 import { UserType} from "../../redux/usersReducer";
+import {NavLink} from "react-router-dom";
 
 type UsersPropsType = {
     onPageChanged:(pageNumber: number)=>void
@@ -30,7 +31,7 @@ export const Users =(props:UsersPropsType)=>{
         <div>
             <div className={styles.pages}>
                 {slicedPages.map((el => {
-                    return <span onClick={() => onPageChanged(el)}
+                    return <span onClick={() => onPageChanged(el)} key={el}
                                  className={currentPage === el ? `${styles.selectedPage} ${styles.spanPage}` : styles.spanPage}>{el}</span>
                 }))}
             </div>
@@ -41,7 +42,12 @@ export const Users =(props:UsersPropsType)=>{
                     }
                     return (<div key={el.id}>
                         <div className={styles.usersInfo}>
-                            <div><img className={styles.userAvatar} src={user1} alt="user"/></div>
+                            <div>
+                                <NavLink to={'/profile/' + el.id}>
+                                    <img className={styles.userAvatar} src={user1} alt="user"/>
+                                </NavLink>
+
+                            </div>
                             <div>{el.name}</div>
                             <div>{"city"},{"country"}</div>
                             <div>

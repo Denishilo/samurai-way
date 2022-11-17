@@ -1,5 +1,5 @@
 import React from "react";
-import {addNewPostAC, changeTextPostAC, mainPageType} from "../../../redux/mainPagePostReducer";
+import {addNewPost, changeTextPost, mainPageType} from "../../../redux/mainPagePostReducer";
 import {Posts} from "./Posts";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
@@ -25,10 +25,10 @@ let mapStateToProps = (state: rootReducerType): MapStatePropsType => {
 let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
         addPostHandler: () => {
-            dispatch(addNewPostAC())
+            dispatch(addNewPost())
         },
         changeTextHandler: (newText: string) => {
-            dispatch(changeTextPostAC(newText))
+            dispatch(changeTextPost(newText))
         }
     }
 }

@@ -1,0 +1,21 @@
+
+.navigation__link + .navigation__link{
+    padding-top: 15px;
+}
+
+.main__img{
+    height: 250px;
+}
+.mainContainer{
+    display: flex;
+    justify-content: space-between;
+}
+.myInfo{
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    background:white;
+}

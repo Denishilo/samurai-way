@@ -3,7 +3,6 @@ import './App.css';
 import stylesNav from './components/Navigation/Navigation.module.css';
 import {Header} from "./components/Header/Header";
 import {Navigation} from "./components/Navigation/Navigation";
-import {MainContainer} from "./components/MainContainer/MainContainer";
 import {Redirect, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
@@ -11,6 +10,7 @@ import {Settings} from "./components/Settings/Settings";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {MyPhoto} from "./components/Photos/MyPhoto";
+import {MainContainer} from "./components/MainContainer/MainContainer";
 
 const App = () => {
     return (

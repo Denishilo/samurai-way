@@ -49,6 +49,7 @@ export class UsersComponent extends React.Component<AllUsersPropsType> {
             .then(response => {
                 this.props.changeFetching()
                 this.props.setUsers(response.data.items)
+
             })
     }
 
