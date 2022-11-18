@@ -1,12 +1,12 @@
 import React from "react";
-import {addNewPost, changeTextPost, mainPageType} from "../../../redux/mainPagePostReducer";
+import {addNewPost, changeTextPost, MainPageType} from "../../../redux/mainPagePostReducer";
 import {Posts} from "./Posts";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {rootReducerType} from "../../../redux/redux-store";
 
 type MapStatePropsType = {
-    mainPages: mainPageType
+    mainPages: MainPageType
 }
 
 type MapDispatchPropsType = {

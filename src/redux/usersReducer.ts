@@ -1,37 +1,32 @@
-type UserLocationType = {
-    country: string
-    city: string
-}
+import {PhotoType} from "./mainPagePostReducer";
 
-export type UserType = {
-    id: number
-    name: string
-    status: string
-    followed: boolean
-    avatar: string
-    location: UserLocationType
-}
-
-export type initialStateType = {
-    users: UserType[]
+export type InitialStateType = {
+    users: User[]
     pageSize: number
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
 }
 
-
-type setUsersType = {
+type SetUsersType = {
     type: 'SET-USERS',
     payload: {
-        users: UserType[]
+        users: User[]
     }
 }
+export type User = {
+    "name": string
+    "id": string
+    "uniqueUrlName": null | string
+    "photos": PhotoType
+    "status": null | string
+    "followed": boolean
+}
 
-type changeFollowStatusType = {
+type ChangeFollowStatusType = {
     type: 'CHANGE-FOLLOW-STATUS',
     payload: {
-        id: number
+        id: string
     }
 }
 
@@ -45,16 +40,21 @@ type ChangeCurrentPageType = {
 type SetTotalUserCountType = {
     type: 'SET-TOTAL-COUNT',
     payload: {
-        count:number
+        count: number
     }
 }
 type ChangeFetchingValueType = {
     type: 'TOGGLE-IS-FETCHING'
 
 }
-type allUsersActionType = setUsersType | changeFollowStatusType | ChangeCurrentPageType | SetTotalUserCountType | ChangeFetchingValueType
+type AllUsersActionType =
+    SetUsersType
+    | ChangeFollowStatusType
+    | ChangeCurrentPageType
+    | SetTotalUserCountType
+    | ChangeFetchingValueType
 
-const initialState: initialStateType = {
+const initialState: InitialStateType = {
     users: [],
     pageSize: 10,
     totalUsersCount: 0,
@@ -62,7 +62,7 @@ const initialState: initialStateType = {
     isFetching: false,
 }
 
-export const UsersReducer = (state: initialStateType = initialState, action: allUsersActionType): initialStateType => {
+export const UsersReducer = (state: InitialStateType = initialState, action: AllUsersActionType): InitialStateType => {
     switch (action.type) {
         case "SET-USERS":
             return {...state, users: [...action.payload.users]}
@@ -75,14 +75,14 @@ export const UsersReducer = (state: initialStateType = initialState, action: all
         case "CHANGE-CURRENT-PAGE":
             return {...state, currentPage: action.payload.value}
         case "SET-TOTAL-COUNT":
-            return {...state,totalUsersCount:action.payload.count}
+            return {...state, totalUsersCount: action.payload.count}
         case "TOGGLE-IS-FETCHING":
-            return {...state,isFetching:!state.isFetching}
+            return {...state, isFetching: !state.isFetching}
         default:
             return state
     }
 }
-export const setUsers = (users: UserType[]) => {
+export const setUsers = (users: User[]) => {
     return {
         type: 'SET-USERS',
         payload: {
@@ -91,7 +91,7 @@ export const setUsers = (users: UserType[]) => {
     } as const
 }
 
-export const changeFollowStatus = (id: number) => {
+export const changeFollowStatus = (id: string) => {
     return {
         type: 'CHANGE-FOLLOW-STATUS',
         payload: {
@@ -118,7 +118,7 @@ export const setTotalUserCount = (count: number) => {
     } as const
 }
 
-export const changeFetching =()=> {
+export const changeFetching = () => {
     return {
         type: 'TOGGLE-IS-FETCHING'
     } as const

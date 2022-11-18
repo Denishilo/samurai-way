@@ -4,24 +4,31 @@ import axios from "axios";
 import {
     addNewPost,
     changeTextPost,
-    mainPageType,
+    MainPageType, ProfileType,
     setUserProfile
 } from "../../redux/mainPagePostReducer";
 import {rootReducerType} from "../../redux/redux-store";
 import {connect} from "react-redux";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
+type PathParamType = {
+    userId: string
+}
+type CommonPropsType = RouteComponentProps<PathParamType> & MainContainerPropsType
 
 type MapDispatchToPropsType = {
     addNewPost: () => void,
     changeTextPost: (newText: string) => void,
-    setUserProfile: (profile: any) => void
+    setUserProfile: (profile: ProfileType) => void
 }
-export type MainContainerPropsType = mainPageType & MapDispatchToPropsType
+export type MainContainerPropsType = MainPageType & MapDispatchToPropsType
+export type AllPropsType = MainContainerPropsType & CommonPropsType
 
-export class MainComponent extends React.Component<MainContainerPropsType> {
 
+export class MainComponent extends React.Component<AllPropsType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2/`)
+        let userId = this.props.match.params.userId
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId ? userId : '2'}`)
             .then(response => {
                 this.props.setUserProfile(response.data)
             })
@@ -34,7 +41,7 @@ export class MainComponent extends React.Component<MainContainerPropsType> {
     }
 }
 
-const mapStateToProps = (state: rootReducerType): mainPageType => {
+const mapStateToProps = (state: rootReducerType): MainPageType => {
     return {
         posts: state.mainPages.posts,
         newPostText: state.mainPages.newPostText,
@@ -42,4 +49,9 @@ const mapStateToProps = (state: rootReducerType): mainPageType => {
     }
 }
 
-export const MainContainer = connect(mapStateToProps, {setUserProfile, addNewPost, changeTextPost})(MainComponent)
+let WithUrlDataContainerComponent = withRouter(MainComponent)
+export const MainContainer = connect(mapStateToProps, {
+    setUserProfile,
+    addNewPost,
+    changeTextPost
+})(WithUrlDataContainerComponent)

@@ -1,22 +1,22 @@
 import React from "react";
 import styles from "./Users.module.css";
 import user1 from "../../img/users/user1.svg";
-import { UserType} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
+import {User} from "../../redux/usersReducer";
 
 type UsersPropsType = {
-    onPageChanged:(pageNumber: number)=>void
-    changeFollowStatus:(id:number)=>void
-    users: UserType[]
+    onPageChanged: (pageNumber: number) => void
+    changeFollowStatus: (id: string) => void
+    users: User[]
     pageSize: number
     totalUsersCount: number
     currentPage: number
 }
 
-export const Users =(props:UsersPropsType)=>{
-    const {totalUsersCount, pageSize, currentPage, users,onPageChanged, changeFollowStatus } = props
-
-    let pagesCount = Math.ceil(totalUsersCount /pageSize)
+export const Users = (props: UsersPropsType) => {
+    const {totalUsersCount, pageSize, currentPage, users, onPageChanged, changeFollowStatus} = props
+    console.log(users)
+    let pagesCount = Math.ceil(totalUsersCount / pageSize)
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
@@ -37,19 +37,18 @@ export const Users =(props:UsersPropsType)=>{
             </div>
             <div className={styles.usersWrapper}>
                 {users.map(el => {
-                    const onClickHandler = (id: number) => {
-                       changeFollowStatus(id)
+                    const onClickHandler = (id: string) => {
+                        changeFollowStatus(id)
                     }
                     return (<div key={el.id}>
                         <div className={styles.usersInfo}>
                             <div>
                                 <NavLink to={'/profile/' + el.id}>
-                                    <img className={styles.userAvatar} src={user1} alt="user"/>
+                                    <img className={styles.userAvatar} src={el.photos.small || user1} alt="user"/>
                                 </NavLink>
 
                             </div>
                             <div>{el.name}</div>
-                            <div>{"city"},{"country"}</div>
                             <div>
                                 <button className={styles.button}
                                         onClick={() => onClickHandler(el.id)}>{el.followed ? 'Unfollow' : 'Follow'}</button>

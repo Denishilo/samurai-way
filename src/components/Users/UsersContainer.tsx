@@ -1,20 +1,19 @@
 import React from "react";
 import {connect} from "react-redux";
 import {rootReducerType} from "../../redux/redux-store";
-
 import {
     changeCurrentPage, changeFetching,
     changeFollowStatus,
     setTotalUserCount,
-    setUsers,
-    UserType
+    setUsers, User,
 } from "../../redux/usersReducer";
 import axios from "axios";
 import {Users} from "./Users";
 import {PreLoader} from "../../common/components/PreLoader";
 
+
 type mapStateType = {
-    users: UserType[]
+    users: User[]
     pageSize: number
     totalUsersCount: number
     currentPage: number
@@ -22,8 +21,8 @@ type mapStateType = {
 }
 
 type mapDispatchType = {
-    setUsers: (users: UserType[]) => void
-    changeFollowStatus: (userId: number) => void
+    setUsers: (users: User[]) => void
+    changeFollowStatus: (userId: string) => void
     changeCurrentPage: (value: number) => void
     setTotalUserCount: (count: number) => void
     changeFetching: () => void
@@ -49,7 +48,6 @@ export class UsersComponent extends React.Component<AllUsersPropsType> {
             .then(response => {
                 this.props.changeFetching()
                 this.props.setUsers(response.data.items)
-
             })
     }
 
@@ -75,4 +73,10 @@ const mapStateToProps = (state: rootReducerType): mapStateType => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, {setUsers,changeFollowStatus,changeCurrentPage,setTotalUserCount,changeFetching})(UsersComponent)
+export const UsersContainer = connect(mapStateToProps, {
+    setUsers,
+    changeFollowStatus,
+    changeCurrentPage,
+    setTotalUserCount,
+    changeFetching
+})(UsersComponent)

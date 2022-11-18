@@ -20,8 +20,8 @@ const App = () => {
                 <div className={stylesNav.navigation__section}>
                     <Navigation/>
                     <div className='wrapper__content'>
-                        <Route path={'/'} render={() => <Redirect to={'/profile'}/>}/>
-                        <Route path={'/profile'} render={() => <MainContainer/>}/>
+                        <Route path={'/'} render={() => <Redirect to={'/profile/'}/>}/>
+                        <Route path={'/profile/:userId?'} render={() => <MainContainer/>}/>
                         <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                         <Route path={'/users'} render={() => <UsersContainer/>}/>
                         <Route path={'/photo'} render={() => <MyPhoto/>}/>

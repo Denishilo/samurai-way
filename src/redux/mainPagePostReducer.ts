@@ -2,44 +2,34 @@ const ADD_POST = 'ADD-POST';
 const CHANGE_TEXT_POST = 'CHANGE-TEXT-POST';
 const SET_USER_PROFILE = "SET-USER-PROFILE"
 
-
 export type PostType = {
     id: number
     message: string
     likesCount: number
 }
-export type mainPageType = {
+export type MainPageType = {
     posts: PostType[]
     newPostText: string
-    profile: null | ProfileInfoType
+    profile: null | ProfileType
 }
 
-export type SocialType = {
-    [key: string]: null | string
-}
+type Socials = 'github' | 'mainLink' | 'youtube' | 'facebook' | 'website' |'vk' | 'twitter' | 'instagram'
 
-export type ContactsType = {
-    github: SocialType
-    mainLink: SocialType
-    youtube: SocialType
-    facebook: SocialType,
-    website: SocialType,
-    vk: SocialType,
-    twitter: SocialType,
-    instagram: SocialType
-}
+export type ContactsType = Record<Socials, string | null>
+
 export type PhotoType = {
     small: string
     large: string
 }
-export type ProfileInfoType = {
-    photos: PhotoType
-    contacts: ContactsType
-    aboutMe: string
-    fullName: string
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    userId: string
+
+export type ProfileType = {
+    aboutMe: null | string
+    "contacts": ContactsType
+    "lookingForAJob": boolean,
+    "lookingForAJobDescription": null | string,
+    "fullName": string,
+    "userId": string,
+    "photos": PhotoType
 }
 
 export type actionDispatchType =
@@ -47,7 +37,7 @@ export type actionDispatchType =
     | ReturnType<typeof changeTextPost>
     | ReturnType<typeof setUserProfile>
 
-const initialState: mainPageType = {
+const initialState: MainPageType = {
     posts: <PostType[]>[
         {id: 1, message: 'Hello my friends', likesCount: 10},
         {id: 2, message: 'How are you? I\'m study in IT-INCUBATOR!', likesCount: 4},
@@ -55,7 +45,7 @@ const initialState: mainPageType = {
     newPostText: '',
     profile: null,
 }
-export const mainPagePostReducer = (state: mainPageType = initialState, action: actionDispatchType): mainPageType => {
+export const mainPagePostReducer = (state: MainPageType = initialState, action: actionDispatchType): MainPageType => {
     switch (action.type) {
         case ADD_POST: {
             if (state.newPostText) {
@@ -65,7 +55,7 @@ export const mainPagePostReducer = (state: mainPageType = initialState, action: 
             return state
         }
         case CHANGE_TEXT_POST:
-            return {...state, newPostText: action.newText}
+            return {...state, newPostText: action.payload.newText}
         case SET_USER_PROFILE:
             return {...state, profile: action.payload.profile}
         default:
@@ -82,11 +72,13 @@ export const addNewPost = () => {
 export const changeTextPost = (newText: string) => {
     return {
         type: CHANGE_TEXT_POST,
-        newText,
+        payload:{
+            newText
+        }
     } as const
 }
 
-export const setUserProfile = (profile: any) => {
+export const setUserProfile = (profile: ProfileType) => {
     return {
         type: SET_USER_PROFILE,
         payload: {
