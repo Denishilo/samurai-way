@@ -14,14 +14,18 @@ export type AllPropsType = UserAuthType & MapDispatchToPropsType
 export class HeaderContainer extends React.Component<AllPropsType>{
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials:true})
-            .then(response => {
-                console.log(response)
+            .then(res => {
+                console.log(res)
+                console.log(res.data.data.id)
+                console.log(res.data.data.login)
+
+                this.props.setUser(res.data.data.id, res.data.data.login,res.data.data.email,true )
             })
     }
 
     render(){
         return (
-            <Header/>
+            <Header data={this.props}/>
         )
     }
 }

@@ -33,7 +33,6 @@ export class MainComponent extends React.Component<AllPropsType> {
                 this.props.setUserProfile(response.data)
             })
     }
-
     render() {
         return (
             <Main state={this.props}/>

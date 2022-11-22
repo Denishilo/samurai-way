@@ -3,6 +3,7 @@ import styles from "./Users.module.css";
 import user1 from "../../img/users/user1.svg";
 import {NavLink} from "react-router-dom";
 import {User} from "../../redux/usersReducer";
+import axios from "axios";
 
 type UsersPropsType = {
     onPageChanged: (pageNumber: number) => void
@@ -37,9 +38,34 @@ export const Users = (props: UsersPropsType) => {
             </div>
             <div className={styles.usersWrapper}>
                 {users.map(el => {
-                    const onClickHandler = (id: string) => {
-                        changeFollowStatus(id)
+                    const onClickHandlerUnfollow = () => {
+                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
+                                withCredentials: true,
+                                headers: {
+                                    'API-KEY':'f746c884-1e65-41cc-803b-7578faa18b3d'
+                                }
+                            })
+                                .then(res => {
+                                    if(res.data.resultCode===0){
+                                        changeFollowStatus(el.id)
+                                    }
+                                })
                     }
+
+                    const onClickHandlerFollow = () => {
+                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {},{
+                            withCredentials: true,
+                            headers: {
+                                'API-KEY':'f746c884-1e65-41cc-803b-7578faa18b3d'
+                            }
+                        })
+                            .then(res => {
+                                if(res.data.resultCode===0){
+                                    changeFollowStatus(el.id)
+                                }
+                            })
+                    }
+
                     return (<div key={el.id}>
                         <div className={styles.usersInfo}>
                             <div>
@@ -51,7 +77,7 @@ export const Users = (props: UsersPropsType) => {
                             <div>{el.name}</div>
                             <div>
                                 <button className={styles.button}
-                                        onClick={() => onClickHandler(el.id)}>{el.followed ? 'Unfollow' : 'Follow'}</button>
+                                        onClick={el.followed ? onClickHandlerUnfollow : onClickHandlerFollow}>{el.followed ? 'Unfollow' : 'Follow'}</button>
                             </div>
                         </div>
                     </div>)
