@@ -12,10 +12,22 @@ type UsersPropsType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    toggleFollowProgress: (isFetching:boolean, userId:string) => void
+    followingProgress:Array<string>
 }
 
 export const Users = (props: UsersPropsType) => {
-    const {totalUsersCount, pageSize, currentPage, users, onPageChanged, changeFollowStatus} = props
+    const {
+        totalUsersCount,
+        pageSize,
+        currentPage,
+        users,
+        onPageChanged,
+        changeFollowStatus,
+        toggleFollowProgress,
+        followingProgress
+    } = props
+
     console.log(users)
     let pagesCount = Math.ceil(totalUsersCount / pageSize)
     let pages = []
@@ -39,20 +51,25 @@ export const Users = (props: UsersPropsType) => {
             <div className={styles.usersWrapper}>
                 {users.map(el => {
                     const onClickHandlerUnfollow = () => {
+                        toggleFollowProgress(true, el.id)
                         followAPI.unfollow(el.id)
-                            .then(res=>{
-                                if(res===0){
+                            .then(res => {
+                                if (res === 0) {
                                     changeFollowStatus(el.id)
                                 }
+                                toggleFollowProgress(false, el.id)
                             })
                     }
                     const onClickHandlerFollow = () => {
+                        toggleFollowProgress(true,el.id)
                         followAPI.follow(el.id)
                             .then(res => {
-                                if(res===0){
+                                if (res === 0) {
                                     changeFollowStatus(el.id)
                                 }
+                                toggleFollowProgress(false,el.id)
                             })
+
                     }
                     return (<div key={el.id}>
                         <div className={styles.usersInfo}>
@@ -64,7 +81,7 @@ export const Users = (props: UsersPropsType) => {
                             </div>
                             <div>{el.name}</div>
                             <div>
-                                <button className={styles.button}
+                                <button className={styles.button} disabled={ followingProgress.some(id=> id=== el.id)}
                                         onClick={el.followed ? onClickHandlerUnfollow : onClickHandlerFollow}>{el.followed ? 'Unfollow' : 'Follow'}</button>
                             </div>
                         </div>

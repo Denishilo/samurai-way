@@ -6,6 +6,7 @@ export type InitialStateType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingProgress: Array<string>
 }
 
 type SetUsersType = {
@@ -14,6 +15,7 @@ type SetUsersType = {
         users: User[]
     }
 }
+
 export type User = {
     "name": string
     "id": string
@@ -47,12 +49,22 @@ type ChangeFetchingValueType = {
     type: 'TOGGLE-IS-FETCHING'
 
 }
+
+type ToggleFollowingProgress = {
+    type: 'TOGGLE-FOLLOWING',
+    payload:{
+        isFetching:boolean
+        userId:string
+    }
+}
+
 type AllUsersActionType =
     SetUsersType
     | ChangeFollowStatusType
     | ChangeCurrentPageType
     | SetTotalUserCountType
     | ChangeFetchingValueType
+    | ToggleFollowingProgress
 
 const initialState: InitialStateType = {
     users: [],
@@ -60,6 +72,7 @@ const initialState: InitialStateType = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
+    followingProgress: []
 }
 
 export const UsersReducer = (state: InitialStateType = initialState, action: AllUsersActionType): InitialStateType => {
@@ -78,6 +91,11 @@ export const UsersReducer = (state: InitialStateType = initialState, action: All
             return {...state, totalUsersCount: action.payload.count}
         case "TOGGLE-IS-FETCHING":
             return {...state, isFetching: !state.isFetching}
+        case "TOGGLE-FOLLOWING":
+            return {...state,
+                followingProgress: action.payload.isFetching
+                    ? [...state.followingProgress,action.payload.userId]
+                    : state.followingProgress.filter(id => id !== action.payload.userId)}
         default:
             return state
     }
@@ -121,5 +139,15 @@ export const setTotalUserCount = (count: number) => {
 export const changeFetching = () => {
     return {
         type: 'TOGGLE-IS-FETCHING'
+    } as const
+}
+
+export const toggleFollowProgress = (isFetching:boolean, userId:string) => {
+    return {
+        type: 'TOGGLE-FOLLOWING',
+        payload:{
+            isFetching,
+            userId
+        }
     } as const
 }
