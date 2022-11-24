@@ -12,6 +12,5 @@ export const usersAPI = {
     getUsers (currentPage:number,pageSize:number){
         return instanceAxios.get(`users?page=${currentPage}&count=${pageSize}`).then(response=>response.data)
     },
-
 }
 

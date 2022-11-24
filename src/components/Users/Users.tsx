@@ -3,7 +3,6 @@ import styles from "./Users.module.css";
 import user1 from "../../img/users/user1.svg";
 import {NavLink} from "react-router-dom";
 import {User} from "../../redux/usersReducer";
-import axios from "axios";
 import {followAPI} from "../../api/followAPI";
 
 type UsersPropsType = {
@@ -40,20 +39,13 @@ export const Users = (props: UsersPropsType) => {
             <div className={styles.usersWrapper}>
                 {users.map(el => {
                     const onClickHandlerUnfollow = () => {
-
-                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
-                                withCredentials: true,
-                                headers: {
-                                    'API-KEY':'f746c884-1e65-41cc-803b-7578faa18b3d'
+                        followAPI.unfollow(el.id)
+                            .then(res=>{
+                                if(res===0){
+                                    changeFollowStatus(el.id)
                                 }
                             })
-                                .then(res => {
-                                    if(res.data.resultCode===0){
-                                        changeFollowStatus(el.id)
-                                    }
-                                })
                     }
-
                     const onClickHandlerFollow = () => {
                         followAPI.follow(el.id)
                             .then(res => {
@@ -62,7 +54,6 @@ export const Users = (props: UsersPropsType) => {
                                 }
                             })
                     }
-
                     return (<div key={el.id}>
                         <div className={styles.usersInfo}>
                             <div>
