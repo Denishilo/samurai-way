@@ -3,13 +3,15 @@ import {connect} from "react-redux";
 import {rootReducerType} from "../../redux/redux-store";
 import {
     changeCurrentPage, changeFetching,
-    changeFollowStatus,
+    changeFollowStatus, getUsersThunkCreator,
     setTotalUserCount,
     setUsers, toggleFollowProgress, User,
 } from "../../redux/usersReducer";
 import {Users} from "./Users";
 import {PreLoader} from "../../common/components/PreLoader";
 import {usersAPI} from "../../api/usersAPI";
+import {Dispatch} from "redux";
+
 
 type mapStateType = {
     users: User[]
@@ -27,26 +29,19 @@ type mapDispatchType = {
     setTotalUserCount: (count: number) => void
     changeFetching: () => void
     toggleFollowProgress:(isFetching:boolean, userId:string)=>void
+    getUsersThunkCreator:(currentPage:number,pageSize:number)=>any
 }
 export type AllUsersPropsType = mapStateType & mapDispatchType
 
 export class UsersComponent extends React.Component<AllUsersPropsType> {
     componentDidMount() {
-        this.props.changeFetching()
-        usersAPI.getUsers(this.props.currentPage,this.props.pageSize).then(data => {
-            this.props.changeFetching()
-            this.props.setUsers(data.items)
-            this.props.setTotalUserCount(data.totalCount)
-        })
+
+      this.props.getUsersThunkCreator(this.props.currentPage,this.props.pageSize)
     }
+
     onPageChanged = (pageNumber: number) => {
         this.props.changeCurrentPage(pageNumber)
-        this.props.changeFetching()
-        usersAPI.getUsers(pageNumber,this.props.pageSize)
-            .then(data => {
-                this.props.changeFetching()
-                this.props.setUsers(data.items)
-            })
+        this.props.getUsersThunkCreator(pageNumber,this.props.pageSize)
     }
     render() {
         return (
@@ -56,7 +51,8 @@ export class UsersComponent extends React.Component<AllUsersPropsType> {
                        users={this.props.users} onPageChanged={(pageNumber: number) => this.onPageChanged(pageNumber)}
                        changeFollowStatus={this.props.changeFollowStatus}
                        toggleFollowProgress={this.props.toggleFollowProgress}
-                       followingProgress={this.props.followingProgress}/>
+                       followingProgress={this.props.followingProgress}
+                       />
             </>
         )
     }
@@ -79,5 +75,6 @@ export const UsersContainer = connect(mapStateToProps, {
     changeCurrentPage,
     setTotalUserCount,
     changeFetching,
-    toggleFollowProgress
+    toggleFollowProgress,
+    getUsersThunkCreator,
 })(UsersComponent)

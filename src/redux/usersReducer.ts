@@ -1,4 +1,6 @@
 import {PhotoType} from "./mainPagePostReducer";
+import {usersAPI} from "../api/usersAPI";
+import {Dispatch} from "redux";
 
 export type InitialStateType = {
     users: User[]
@@ -150,4 +152,13 @@ export const toggleFollowProgress = (isFetching:boolean, userId:string) => {
             userId
         }
     } as const
+}
+
+export const getUsersThunkCreator =(currentPage:number,pageSize:number) =>(dispatch:Dispatch)=>{
+    dispatch(changeFetching())
+    usersAPI.getUsers(currentPage,pageSize).then(data => {
+        dispatch(changeFetching())
+        dispatch(setUsers(data.items))
+        dispatch(setTotalUserCount(data.totalCount))
+    })
 }
