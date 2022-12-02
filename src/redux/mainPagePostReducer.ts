@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {instanceAxios, mainProfileAPI} from "../api/mainProfileAPI";
+
 const ADD_POST = 'ADD-POST';
 const CHANGE_TEXT_POST = 'CHANGE-TEXT-POST';
 const SET_USER_PROFILE = "SET-USER-PROFILE"
@@ -86,3 +89,9 @@ export const setUserProfile = (profile: ProfileType) => {
         }
     } as const
 }
+
+// export const mainProfileThunkCreator =(userId:string)=>(dispatch:Dispatch)=>{
+//     mainProfileAPI.getProfile(userId){
+//         return instanceAxios.get(`profile/${userId ? userId : '2'}`).then(response => {setUserProfile(response.data)})
+//     }
+// }

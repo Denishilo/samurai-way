@@ -10,6 +10,7 @@ import {
 import {rootReducerType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {mainProfileAPI} from "../../api/mainProfileAPI";
 
 type PathParamType = {
     userId: string
@@ -28,6 +29,8 @@ export type AllPropsType = MainContainerPropsType & CommonPropsType
 export class MainComponent extends React.Component<AllPropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
+        // mainProfileThunkCreator(userId)
+        //mainProfileAPI.getProfile(userId)
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId ? userId : '2'}`)
             .then(response => {
                 this.props.setUserProfile(response.data)

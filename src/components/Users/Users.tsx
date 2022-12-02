@@ -3,17 +3,16 @@ import styles from "./Users.module.css";
 import user1 from "../../img/users/user1.svg";
 import {NavLink} from "react-router-dom";
 import {User} from "../../redux/usersReducer";
-import {followAPI} from "../../api/followAPI";
 
 type UsersPropsType = {
     onPageChanged: (pageNumber: number) => void
-    changeFollowStatus: (id: string) => void
     users: User[]
     pageSize: number
     totalUsersCount: number
     currentPage: number
-    toggleFollowProgress: (isFetching:boolean, userId:string) => void
-    followingProgress:Array<string>
+    followingProgress: Array<string>
+    followThunkCreator: (id: string) => any
+    unfollowThunkCreator: (id: string) => any
 }
 
 export const Users = (props: UsersPropsType) => {
@@ -23,9 +22,9 @@ export const Users = (props: UsersPropsType) => {
         currentPage,
         users,
         onPageChanged,
-        changeFollowStatus,
-        toggleFollowProgress,
-        followingProgress
+        followingProgress,
+        followThunkCreator,
+        unfollowThunkCreator
     } = props
 
     console.log(users)
@@ -51,25 +50,10 @@ export const Users = (props: UsersPropsType) => {
             <div className={styles.usersWrapper}>
                 {users.map(el => {
                     const onClickHandlerUnfollow = () => {
-                        toggleFollowProgress(true, el.id)
-                        followAPI.unfollow(el.id)
-                            .then(res => {
-                                if (res === 0) {
-                                    changeFollowStatus(el.id)
-                                }
-                                toggleFollowProgress(false, el.id)
-                            })
+                        unfollowThunkCreator(el.id)
                     }
                     const onClickHandlerFollow = () => {
-                        toggleFollowProgress(true,el.id)
-                        followAPI.follow(el.id)
-                            .then(res => {
-                                if (res === 0) {
-                                    changeFollowStatus(el.id)
-                                }
-                                toggleFollowProgress(false,el.id)
-                            })
-
+                        followThunkCreator(el.id)
                     }
                     return (<div key={el.id}>
                         <div className={styles.usersInfo}>
@@ -81,7 +65,7 @@ export const Users = (props: UsersPropsType) => {
                             </div>
                             <div>{el.name}</div>
                             <div>
-                                <button className={styles.button} disabled={ followingProgress.some(id=> id=== el.id)}
+                                <button className={styles.button} disabled={followingProgress.some(id => id === el.id)}
                                         onClick={el.followed ? onClickHandlerUnfollow : onClickHandlerFollow}>{el.followed ? 'Unfollow' : 'Follow'}</button>
                             </div>
                         </div>
