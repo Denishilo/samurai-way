@@ -1,16 +1,13 @@
 import React from "react";
 import {Main} from "./Main";
-import axios from "axios";
 import {
     addNewPost,
     changeTextPost,
-    MainPageType, ProfileType,
-    setUserProfile
+    MainPageType, mainProfileThunkCreator,
 } from "../../redux/mainPagePostReducer";
 import {rootReducerType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {mainProfileAPI} from "../../api/mainProfileAPI";
 
 type PathParamType = {
     userId: string
@@ -20,22 +17,17 @@ type CommonPropsType = RouteComponentProps<PathParamType> & MainContainerPropsTy
 type MapDispatchToPropsType = {
     addNewPost: () => void,
     changeTextPost: (newText: string) => void,
-    setUserProfile: (profile: ProfileType) => void
+    mainProfileThunkCreator:(userId:string)=>void
 }
 export type MainContainerPropsType = MainPageType & MapDispatchToPropsType
 export type AllPropsType = MainContainerPropsType & CommonPropsType
 
-
 export class MainComponent extends React.Component<AllPropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
-        // mainProfileThunkCreator(userId)
-        //mainProfileAPI.getProfile(userId)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId ? userId : '2'}`)
-            .then(response => {
-                this.props.setUserProfile(response.data)
-            })
+        this.props.mainProfileThunkCreator(userId)
     }
+
     render() {
         return (
             <Main state={this.props}/>
@@ -53,7 +45,7 @@ const mapStateToProps = (state: rootReducerType): MainPageType => {
 
 let WithUrlDataContainerComponent = withRouter(MainComponent)
 export const MainContainer = connect(mapStateToProps, {
-    setUserProfile,
     addNewPost,
-    changeTextPost
+    changeTextPost,
+    mainProfileThunkCreator
 })(WithUrlDataContainerComponent)
