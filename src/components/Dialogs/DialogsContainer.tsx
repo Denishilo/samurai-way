@@ -3,9 +3,12 @@ import {addMessageActionCreatorAC, changeTextMessageAC, dialogsPages} from "../.
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
+import {UserDataType} from "../../redux/userAuthReducer";
+import {rootReducerType} from "../../redux/redux-store";
 
 type MapStateType = {
     dialogsPages: dialogsPages
+    data:UserDataType
 }
 type MapDispatchType = {
     onClickAddMessage: () => void
@@ -14,9 +17,10 @@ type MapDispatchType = {
 
 export type  AllDialogsPropsType = MapStateType & MapDispatchType
 
-const mapStateToProps = (state: MapStateType): MapStateType => {
+const mapStateToProps = (state: rootReducerType): MapStateType => {
     return {
-        dialogsPages: state.dialogsPages
+        dialogsPages: state.dialogsPages,
+        data: state.userAuth.data
     }
 }
 

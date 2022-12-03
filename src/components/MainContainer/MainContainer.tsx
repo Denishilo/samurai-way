@@ -7,7 +7,8 @@ import {
 } from "../../redux/mainPagePostReducer";
 import {rootReducerType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {UserDataType} from "../../redux/userAuthReducer";
 
 type PathParamType = {
     userId: string
@@ -17,9 +18,12 @@ type CommonPropsType = RouteComponentProps<PathParamType> & MainContainerPropsTy
 type MapDispatchToPropsType = {
     addNewPost: () => void,
     changeTextPost: (newText: string) => void,
-    mainProfileThunkCreator:(userId:string)=>void
+    mainProfileThunkCreator: (userId: string) => void
 }
-export type MainContainerPropsType = MainPageType & MapDispatchToPropsType
+type MapStateTypeProps = MainPageType & {
+    data: UserDataType
+}
+export type MainContainerPropsType = MapStateTypeProps & MapDispatchToPropsType
 export type AllPropsType = MainContainerPropsType & CommonPropsType
 
 export class MainComponent extends React.Component<AllPropsType> {
@@ -29,17 +33,19 @@ export class MainComponent extends React.Component<AllPropsType> {
     }
 
     render() {
+        if (!this.props.data.isUserAuth) return <Redirect to={'./login'}/>
         return (
             <Main state={this.props}/>
         )
     }
 }
 
-const mapStateToProps = (state: rootReducerType): MainPageType => {
+const mapStateToProps = (state: rootReducerType): MapStateTypeProps => {
     return {
         posts: state.mainPages.posts,
         newPostText: state.mainPages.newPostText,
-        profile: state.mainPages.profile
+        profile: state.mainPages.profile,
+        data: state.userAuth.data
     }
 }
 

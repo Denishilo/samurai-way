@@ -3,10 +3,12 @@ import styles from './Dialogs.module.css'
 import {DialogUser} from "./DialogUser/DialogUser";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {AllDialogsPropsType} from "./DialogsContainer";
+import {Redirect} from "react-router-dom";
 
 export const Dialogs = (props: AllDialogsPropsType) => {
     const {dialogsUsers, dialogsMessages, newTextMessage} = props.dialogsPages
     const {onClickAddMessage, onChangeTextMessage} = props
+    let {isUserAuth} = props.data
 
     let dialogsUsersElements = dialogsUsers.map(d => <DialogUser key={d.id} name={d.name} id={d.id}/>)
     let dialogsMessagesElements = dialogsMessages.map(m => <DialogItem key={m.id} message={m.message} id={m.id}/>)
@@ -18,6 +20,8 @@ export const Dialogs = (props: AllDialogsPropsType) => {
     const onChangeTextMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         onChangeTextMessage(e.currentTarget.value)
     }
+
+    if(!isUserAuth) return (<Redirect to={'./login'}/>)
 
     return (
         <div className={styles.dialogs__wrapper}>

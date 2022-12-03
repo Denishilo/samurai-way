@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
     dialogsPages: messageReducer,
     mainPages: mainPagePostReducer,
     usersPage: UsersReducer,
-    userAuth:userAuthReducer
+    userAuth: userAuthReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))
