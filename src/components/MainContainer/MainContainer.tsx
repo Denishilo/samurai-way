@@ -9,6 +9,8 @@ import {rootReducerType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {UserDataType} from "../../redux/userAuthReducer";
+import {Dialogs} from "../Dialogs/Dialogs";
+import {withAuthRedirect} from "../Hoc/withAuthRedirect";
 
 type PathParamType = {
     userId: string
@@ -33,7 +35,6 @@ export class MainComponent extends React.Component<AllPropsType> {
     }
 
     render() {
-        if (!this.props.data.isUserAuth) return <Redirect to={'./login'}/>
         return (
             <Main state={this.props}/>
         )
@@ -45,11 +46,14 @@ const mapStateToProps = (state: rootReducerType): MapStateTypeProps => {
         posts: state.mainPages.posts,
         newPostText: state.mainPages.newPostText,
         profile: state.mainPages.profile,
-        data: state.userAuth.data
+        data:state.userAuth.data
     }
 }
 
-let WithUrlDataContainerComponent = withRouter(MainComponent)
+let  AuthRedirectComponent = withAuthRedirect(MainComponent)
+
+let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
+
 export const MainContainer = connect(mapStateToProps, {
     addNewPost,
     changeTextPost,

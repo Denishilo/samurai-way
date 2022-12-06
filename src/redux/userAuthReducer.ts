@@ -9,7 +9,7 @@ export type UserDataType = {
     id: null | string
     login: null | string
     email: null | string
-    isUserAuth: boolean
+    isUserAuth:boolean
 }
 
 type AllUserAuthActionType = ReturnType<typeof setUser>
