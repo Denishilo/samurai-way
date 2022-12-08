@@ -16,7 +16,7 @@ export class Status extends React.Component {
         return (
             <div className={styles.statusWrapper}>
                 {!this.state.editMode && <div>
-                    <span onDoubleClick={this.toggleEditMode}>{'testtesttest'}</span>
+                    <span onDoubleClick={this.toggleEditMode}>{'testtest'}</span>
                 </div>}
                 {this.state.editMode && <div>
                     <input autoFocus={true} onBlur={this.toggleEditMode} type="text" value={'status'}/>
