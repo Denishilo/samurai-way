@@ -9,6 +9,7 @@ import {rootReducerType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../Hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type PathParamType = {
     userId: string
@@ -51,12 +52,8 @@ const mapStateToProps = (state: rootReducerType): MapStateTypeProps => {
     }
 }
 
-let  AuthRedirectComponent = withAuthRedirect(MainComponent)
-
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
-
-export const MainContainer = connect(mapStateToProps, {
+export const MainContainer = compose<React.ComponentType>(connect(mapStateToProps, {
     addNewPost,
     changeTextPost,
     mainProfileThunkCreator
-})(WithUrlDataContainerComponent)
+}),withRouter,withAuthRedirect)(MainComponent)
