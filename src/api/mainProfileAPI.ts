@@ -10,6 +10,6 @@ export const instanceAxios = axios.create({
 
 export const mainProfileAPI = {
     getProfile(userId: string) {
-        return instanceAxios.get(`profile/${userId ? userId : '2'}`)
+        return instanceAxios.get(`profile/${userId}`)
     }
 }

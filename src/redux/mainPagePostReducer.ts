@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {mainProfileAPI} from "../api/mainProfileAPI";
+import {setUser} from "./userAuthReducer";
 
 const ADD_POST = 'ADD-POST';
 const CHANGE_TEXT_POST = 'CHANGE-TEXT-POST';
@@ -39,6 +40,7 @@ export type actionDispatchType =
     | ReturnType<typeof addNewPost>
     | ReturnType<typeof changeTextPost>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setUser>
 
 const initialState: MainPageType = {
     posts: <PostType[]>[
@@ -93,6 +95,7 @@ const setUserProfile = (profile: ProfileType) => {
 export const mainProfileThunkCreator = (userId: string) => (dispatch: Dispatch) => {
     mainProfileAPI.getProfile(userId)
         .then(response => {
+            console.log(response)
             dispatch(setUserProfile(response.data))
         })
 }

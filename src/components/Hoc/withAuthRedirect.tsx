@@ -1,6 +1,5 @@
-import React from "react";
+import React, {Component, ComponentType} from "react";
 import {Redirect} from "react-router-dom";
-import {Dialogs} from "../Dialogs/Dialogs";
 import {rootReducerType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 
@@ -13,11 +12,16 @@ let mapStateToPropsForRedirect = (state: rootReducerType): MapStatePropsType => 
     }
 }
 
-export const withAuthRedirect = (Component: any) => {
+export function withAuthRedirect<T>(Component: ComponentType<T>)  {
 
     const RedirectComponent = (props: MapStatePropsType) => {
-        if (!props.data) return (<Redirect to={'./login'}/>)
-        return <Component {...props}/>
+        let {data, ...restProps} = props
+        console.log('REDIRECT')
+        console.log(data)
+        if (!data) {
+            return (<Redirect to={'/login'}/>)
+        }
+        return <Component {...restProps as T}/>
     }
     return connect(mapStateToPropsForRedirect)(RedirectComponent)
 }

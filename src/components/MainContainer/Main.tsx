@@ -12,6 +12,7 @@ type MainPropsType = {
 
 export const Main = (props: MainPropsType) => {
     const {profile} = props.state
+    console.log(profile)
     if (!profile) {
         return <PreLoader/>
     }

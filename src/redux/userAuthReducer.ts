@@ -26,6 +26,7 @@ const initialState = {
 export const userAuthReducer = (state: UserAuthType = initialState, action: AllUserAuthActionType): UserAuthType => {
     switch (action.type) {
         case "SET-USER-AUTH":
+            console.log(action)
             return {...state, data: {...state.data, ...action.payload}}
 
     }

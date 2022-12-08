@@ -10,7 +10,6 @@ type HeaderTypeProps = {
 }
 export const Header = (props: HeaderTypeProps) => {
     const {login, isUserAuth} = props.data.data
-    console.log(login, isUserAuth)
     return (
         <header className={styles.header}>
             <div className={styles.header__container}>
