@@ -12,8 +12,9 @@ type MainPropsType = {
 }
 
 export const Main = (props: MainPropsType) => {
-    const {profile} = props.state
+    const {profile, status , updateUserStatusTC} = props.state
     console.log(profile)
+    console.log('MAINSTATUS',status)
     if (!profile) {
         return <PreLoader/>
     }
@@ -21,7 +22,7 @@ export const Main = (props: MainPropsType) => {
         <div className={styles.mainContainer}>
             <PostsContainer/>
             <div className={styles.myInfo}>
-                <Status/>
+                <Status status={status} updateUserStatusTC={updateUserStatusTC}/>
                 <MainAvatar avatar={profile.photos.large}/>
                 <MainDescription info={profile.aboutMe}
                                  contacts={profile.contacts}

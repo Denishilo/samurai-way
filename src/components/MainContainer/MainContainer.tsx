@@ -2,8 +2,8 @@ import React from "react";
 import {Main} from "./Main";
 import {
     addNewPost,
-    changeTextPost,
-    MainPageType, mainProfileThunkCreator,
+    changeTextPost, getUserStatusTC,
+    MainPageType, mainProfileThunkCreator, updateUserStatusTC,
 } from "../../redux/mainPagePostReducer";
 import {rootReducerType} from "../../redux/redux-store";
 import {connect} from "react-redux";
@@ -20,6 +20,8 @@ type MapDispatchToPropsType = {
     addNewPost: () => void,
     changeTextPost: (newText: string) => void,
     mainProfileThunkCreator: (userId: string) => void
+    getUserStatusTC:(userId: string) => void
+    updateUserStatusTC:(status: string) => void
 }
 type MapStateTypeProps = MainPageType
 
@@ -32,14 +34,16 @@ export class MainComponent extends React.Component<AllPropsType> {
         let userId = this.props.match.params.userId
         if(!userId) {
             console.log('aaaaa')
-            userId = '2'
+            userId = '26482'
+            //userId = '2'
         }
         this.props.mainProfileThunkCreator(userId)
+        this.props.getUserStatusTC(userId)
         console.log(userId)
     }
     render() {
         return (
-            <Main state={this.props}/>
+            <Main state={this.props} />
         )
     }
 }
@@ -49,11 +53,12 @@ const mapStateToProps = (state: rootReducerType): MapStateTypeProps => {
         posts: state.mainPages.posts,
         newPostText: state.mainPages.newPostText,
         profile: state.mainPages.profile,
+        status:state.mainPages.status
     }
 }
 
 export const MainContainer = compose<React.ComponentType>(connect(mapStateToProps, {
     addNewPost,
     changeTextPost,
-    mainProfileThunkCreator
+    mainProfileThunkCreator,getUserStatusTC,updateUserStatusTC
 }),withRouter,withAuthRedirect)(MainComponent)
