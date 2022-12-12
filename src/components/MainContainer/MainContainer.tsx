@@ -33,7 +33,6 @@ export class MainComponent extends React.Component<AllPropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if(!userId) {
-            console.log('aaaaa')
             userId = '26482'
             //userId = '2'
         }

@@ -129,7 +129,7 @@ export const updateUserStatusTC = (status: string) => (dispatch: Dispatch) => {
         .then(res => {
             console.log(res)
             if( res.data.resultCode === 0 ) {
-                dispatch(setUserStatus(res.data.status))
+                getUserStatusTC('26482')(dispatch)
             }
         })
 }
