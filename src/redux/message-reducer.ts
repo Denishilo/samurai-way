@@ -1,5 +1,4 @@
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_TEXT_MESSAGE = 'UPDATE-TEXT-MESSAGE';
 
 export type DialogUserTypeProps = {
     name: string
@@ -12,11 +11,9 @@ export type DialogItemTypeProps = {
 export type dialogsPages = {
     dialogsUsers: DialogUserTypeProps[]
     dialogsMessages: DialogItemTypeProps[]
-    newTextMessage: string
 }
 type actionDispatchType =
     ReturnType<typeof addMessageActionCreatorAC>
-    | ReturnType<typeof changeTextMessageAC>
 
 const initialState: dialogsPages = {
     dialogsUsers: <DialogUserTypeProps[]>[
@@ -33,35 +30,22 @@ const initialState: dialogsPages = {
         {id: 4, message: 'I am study at quarter to 10 p.m.'},
         {id: 5, message: 'Great work!'},
     ],
-    newTextMessage: '',
 }
 export const messageReducer = (state: dialogsPages = initialState, action: actionDispatchType): dialogsPages => {
     switch (action.type) {
         case ADD_MESSAGE:
-            if (state.newTextMessage) {
-                const newMessage: DialogItemTypeProps = {id: 6, message: state.newTextMessage};
-                return {...state, dialogsMessages: [...state.dialogsMessages, newMessage], newTextMessage:''}
-            }
-            return state
-        case UPDATE_TEXT_MESSAGE:
-            if (action.newMessage.trim() !== '') {
-                return {...state, newTextMessage: action.newMessage}
-            }
-            return state
+            const newMessage: DialogItemTypeProps = {id: 6, message: action.payload.message};
+            return {...state, dialogsMessages: [...state.dialogsMessages, newMessage]}
         default:
             return state
     }
 }
-
-export const addMessageActionCreatorAC = () => {
+export const addMessageActionCreatorAC = (message: string) => {
     return {
-        type: ADD_MESSAGE
+        type: ADD_MESSAGE,
+        payload: {
+            message
+        }
     } as const
 }
 
-export const changeTextMessageAC = (value: string) => {
-    return {
-        type: UPDATE_TEXT_MESSAGE,
-        newMessage: value
-    } as const
-}

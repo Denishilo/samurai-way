@@ -1,22 +1,20 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import styles from './Dialogs.module.css'
 import {DialogUser} from "./DialogUser/DialogUser";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {AllDialogsPropsType} from "./DialogsContainer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 export const Dialogs = (props: AllDialogsPropsType) => {
-    const {dialogsUsers, dialogsMessages, newTextMessage} = props.dialogsPages
-    const {onClickAddMessage, onChangeTextMessage} = props
+    const {dialogsUsers, dialogsMessages,} = props.dialogsPages
+    const {onClickAddMessage} = props
 
     let dialogsUsersElements = dialogsUsers.map(d => <DialogUser key={d.id} name={d.name} id={d.id}/>)
     let dialogsMessagesElements = dialogsMessages.map(m => <DialogItem key={m.id} message={m.message} id={m.id}/>)
 
-    const onClickAddMessageHandler = () => {
-        onClickAddMessage()
-    }
-
-    const onChangeTextMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        onChangeTextMessage(e.currentTarget.value)
+    const onSubmit = (formData: DialogsFormDataType) => {
+        console.log(formData.message)
+        onClickAddMessage(formData.message)
     }
 
     return (
@@ -30,15 +28,29 @@ export const Dialogs = (props: AllDialogsPropsType) => {
                 </div>
             </div>
             <div className={styles.sendForm}>
-                <textarea
-                    className={styles.textarea}
-                    title={'Shift+Enter for send'}
-                    placeholder={'Type a new message'}
-                    value={newTextMessage}
-                    onChange={onChangeTextMessageHandler}
-                />
-                <button className={styles.button} onClick={onClickAddMessageHandler}>send message</button>
+                <DialogsReduxForm onSubmit={onSubmit}/>
             </div>
         </div>
     )
 }
+
+type DialogsFormDataType = {
+    message: string
+}
+
+const DialogsForm: React.FC<InjectedFormProps<DialogsFormDataType>> = (props) => {
+    const {handleSubmit}=props
+    return (
+        <form onSubmit={handleSubmit} action="#">
+            <Field component={'input'}
+                   className={styles.textarea}
+                   title={'Shift+Enter for send'}
+                   placeholder={'Type a new message'}
+                   name={'message'}
+            />
+            <button className={styles.button}>send message</button>
+        </form>
+    )
+}
+
+const DialogsReduxForm = reduxForm<DialogsFormDataType>({form: "dialogs"})(DialogsForm)

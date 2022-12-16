@@ -2,7 +2,7 @@ import React from "react";
 import {Main} from "./Main";
 import {
     addNewPost,
-    changeTextPost, getUserStatusTC,
+    getUserStatusTC,
     MainPageType, mainProfileThunkCreator, updateUserStatusTC,
 } from "../../redux/mainPagePostReducer";
 import {rootReducerType} from "../../redux/redux-store";
@@ -20,8 +20,8 @@ type MapDispatchToPropsType = {
     addNewPost: () => void,
     changeTextPost: (newText: string) => void,
     mainProfileThunkCreator: (userId: string) => void
-    getUserStatusTC:(userId: string) => void
-    updateUserStatusTC:(status: string) => void
+    getUserStatusTC: (userId: string) => void
+    updateUserStatusTC: (status: string) => void
 }
 type MapStateTypeProps = MainPageType
 
@@ -32,7 +32,7 @@ export class MainComponent extends React.Component<AllPropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if(!userId) {
+        if (!userId) {
             userId = '26482'
             //userId = '2'
         }
@@ -40,9 +40,10 @@ export class MainComponent extends React.Component<AllPropsType> {
         this.props.getUserStatusTC(userId)
         console.log(userId)
     }
+
     render() {
         return (
-            <Main state={this.props} />
+            <Main state={this.props}/>
         )
     }
 }
@@ -50,14 +51,12 @@ export class MainComponent extends React.Component<AllPropsType> {
 const mapStateToProps = (state: rootReducerType): MapStateTypeProps => {
     return {
         posts: state.mainPages.posts,
-        newPostText: state.mainPages.newPostText,
         profile: state.mainPages.profile,
-        status:state.mainPages.status
+        status: state.mainPages.status
     }
 }
 
 export const MainContainer = compose<React.ComponentType>(connect(mapStateToProps, {
     addNewPost,
-    changeTextPost,
-    mainProfileThunkCreator,getUserStatusTC,updateUserStatusTC
-}),withRouter,withAuthRedirect)(MainComponent)
+    mainProfileThunkCreator, getUserStatusTC, updateUserStatusTC
+}), withRouter, withAuthRedirect)(MainComponent)
