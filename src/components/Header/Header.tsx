@@ -9,6 +9,7 @@ type HeaderTypeProps = {
 
 }
 export const Header = (props: HeaderTypeProps) => {
+    console.log('props',props)
     const {login, isUserAuth} = props.data.data
     return (
         <header className={styles.header}>
@@ -16,11 +17,14 @@ export const Header = (props: HeaderTypeProps) => {
                 <img className={styles.header__logo_img} src={logo} alt="headerLogo"/>
                 <p className={styles.header__title}></p>
                 <div className={styles.login}>
-                    {isUserAuth ? login : <div className={styles.login}>
-                        <NavLink to={'/login'}>
+                    {isUserAuth
+                        ? <div>{login}
+                            <button onClick={props.data.logout}>Log out</button>
+                        </div>
+                        : <div className={styles.login}>
                             Login
-                        </NavLink>
-                    </div>}
+                            <NavLink to={'/login'}></NavLink>
+                        </div>}
                 </div>
             </div>
 

@@ -3,9 +3,11 @@ import {rootReducerType} from "../../redux/redux-store";
 import {authThunkCreator,UserAuthType} from "../../redux/userAuthReducer";
 import {connect} from "react-redux";
 import {Header} from "./Header";
+import {logout} from "../../api/authAPI";
 
 type MapDispatchToPropsType = {
     authThunkCreator: () => void
+    logout:()=>void
 }
 
 export type AllPropsType = UserAuthType & MapDispatchToPropsType
@@ -26,4 +28,4 @@ let mapStateToProps = (state: rootReducerType): UserAuthType => ({
     data: state.userAuth.data
 })
 
-export const HeaderComponent = connect(mapStateToProps, {authThunkCreator})(HeaderContainer)
+export const HeaderComponent = connect(mapStateToProps, {authThunkCreator,logout})(HeaderContainer)

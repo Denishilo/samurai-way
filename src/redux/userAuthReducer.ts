@@ -46,6 +46,8 @@ export const setUser = (id: string, login: string, email: string, isUserAuth: bo
 }
 
 export const authThunkCreator = () => (dispatch: Dispatch) => {
-    authAPI.authMe().then(res =>
-        dispatch(setUser(res.data.id, res.data.login, res.data.email, true)))
+    authAPI.authMe().then(res => {
+        console.log('me')
+        dispatch(setUser(res.data.id, res.data.login, res.data.email, true))
+    })
 }
