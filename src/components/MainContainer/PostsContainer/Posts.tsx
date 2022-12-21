@@ -3,6 +3,9 @@ import styles from './Posts.module.css'
 import {Post} from "./Post/post";
 import {AllPostsPropsType} from "./PostsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLengthCreator, requiredField} from "../../../utilites/validator/validator";
+import {Input} from "../../FormsControls/FormsControls/Input";
+
 
 export const Posts = (props: AllPostsPropsType) => {
     const {addPostHandler} = props
@@ -27,16 +30,17 @@ export const Posts = (props: AllPostsPropsType) => {
 type PostDataFormType = {
     newPost: string
 }
-
+const maxLength10 = maxLengthCreator(10)
 const PostForm: React.FC<InjectedFormProps<PostDataFormType>> = (props) => {
     const {handleSubmit} = props
     return (
-        <form onSubmit={handleSubmit} action="">
+        <form className={styles.sendForm} onSubmit={handleSubmit} action="">
             <Field
-                component={'input'} name={'newPost'}
+                component={Input} name={'newPost'}
                 className={styles.textarea}
                 title={'Shift+Enter for send'}
                 placeholder={'Type a new post'}
+                validate={[requiredField,maxLength10]}
             />
             <button className={styles.button}>Add post</button>
         </form>

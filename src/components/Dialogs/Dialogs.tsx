@@ -4,6 +4,8 @@ import {DialogUser} from "./DialogUser/DialogUser";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {AllDialogsPropsType} from "./DialogsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLengthCreator, requiredField} from "../../utilites/validator/validator";
+import {Input} from "../FormsControls/FormsControls/Input";
 
 export const Dialogs = (props: AllDialogsPropsType) => {
     const {dialogsUsers, dialogsMessages,} = props.dialogsPages
@@ -37,16 +39,17 @@ export const Dialogs = (props: AllDialogsPropsType) => {
 type DialogsFormDataType = {
     message: string
 }
-
+const maxLength50 = maxLengthCreator(50)
 const DialogsForm: React.FC<InjectedFormProps<DialogsFormDataType>> = (props) => {
     const {handleSubmit}=props
     return (
-        <form onSubmit={handleSubmit} action="#">
-            <Field component={'input'}
+        <form className={styles.sendForm} onSubmit={handleSubmit} action="#">
+            <Field component={Input}
                    className={styles.textarea}
                    title={'Shift+Enter for send'}
                    placeholder={'Type a new message'}
                    name={'message'}
+                   validate={[requiredField,maxLength50]}
             />
             <button className={styles.button}>send message</button>
         </form>

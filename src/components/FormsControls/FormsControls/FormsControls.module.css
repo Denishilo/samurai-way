@@ -1,0 +1,8 @@
+.error {
+    border: 1px solid #ff649f;
+    color: #ff649f;
+    border-radius: 10px;
+}
+.spanError{
+    padding-left: 15px;
+}
