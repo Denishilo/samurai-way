@@ -15,7 +15,6 @@ export const Dialogs = (props: AllDialogsPropsType) => {
     let dialogsMessagesElements = dialogsMessages.map(m => <DialogItem key={m.id} message={m.message} id={m.id}/>)
 
     const onSubmit = (formData: DialogsFormDataType) => {
-        console.log(formData.message)
         onClickAddMessage(formData.message)
     }
 
@@ -40,6 +39,7 @@ type DialogsFormDataType = {
     message: string
 }
 const maxLength50 = maxLengthCreator(50)
+
 const DialogsForm: React.FC<InjectedFormProps<DialogsFormDataType>> = (props) => {
     const {handleSubmit}=props
     return (

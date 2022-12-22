@@ -28,7 +28,6 @@ export const userAuthReducer = (state: UserAuthType = initialState, action: AllU
         case "SET-USER-AUTH":
             console.log(action)
             return {...state, data: {...state.data, ...action.payload}}
-
     }
     return state
 }
@@ -40,14 +39,13 @@ export const setUser = (id: string, login: string, email: string, isUserAuth: bo
             id,
             login,
             email,
-            isUserAuth
+            isUserAuth,
         }
     } as const
 }
 
 export const authThunkCreator = () => (dispatch: Dispatch) => {
     authAPI.authMe().then(res => {
-        console.log('me')
         dispatch(setUser(res.data.id, res.data.login, res.data.email, true))
     })
 }

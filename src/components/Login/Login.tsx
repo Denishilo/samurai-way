@@ -15,7 +15,6 @@ type FormLoginDataType = {
 }
 
 export const Login = (props: any) => {
-    console.log('propsAUTH', props.isUserAuth)
     const onSubmit = (formData: FormLoginDataType) => {
         props.login(formData.login, formData.password, formData.rememberMe)
     }
@@ -45,6 +44,9 @@ export const LoginForm: React.FC<InjectedFormProps<FormLoginDataType>> = (props)
             <div>
                 <Field component={'input'} name={'rememberMe'} type="checkbox"/> remember me
             </div>
+            {props.error && <div className={styles.formError}>
+                {props.error}
+            </div>}
             <div>
                 <button className={styles.button}>
                     Login
@@ -54,9 +56,9 @@ export const LoginForm: React.FC<InjectedFormProps<FormLoginDataType>> = (props)
     )
 }
 
-const LoginReduxForm = reduxForm<FormLoginDataType>({
-    form: 'login'
-})(LoginForm)
+const LoginReduxForm = reduxForm<FormLoginDataType>({form: 'login'})(LoginForm)
+
+
 
 type MapStateToPropsType = {
     userAuth: boolean

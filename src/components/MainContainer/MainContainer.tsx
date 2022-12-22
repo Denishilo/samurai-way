@@ -1,8 +1,6 @@
 import React from "react";
 import {Main} from "./Main";
-import {
-    addNewPost,
-    getUserStatusTC,
+import {addNewPost, getUserStatusTC,
     MainPageType, mainProfileThunkCreator, updateUserStatusTC,
 } from "../../redux/mainPagePostReducer";
 import {rootReducerType} from "../../redux/redux-store";
@@ -23,13 +21,15 @@ type MapDispatchToPropsType = {
     getUserStatusTC: (userId: string) => void
     updateUserStatusTC: (status: string) => void
 }
-type MapStateTypeProps = MainPageType
+type MapStateTypeProps = MainPageType & {
+    authorizedUserId:string | null
+    isAuth:boolean
+}
 
 export type MainContainerPropsType = MapStateTypeProps & MapDispatchToPropsType
 export type AllPropsType = MainContainerPropsType & CommonPropsType
 
 export class MainComponent extends React.Component<AllPropsType> {
-
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
@@ -52,7 +52,9 @@ const mapStateToProps = (state: rootReducerType): MapStateTypeProps => {
     return {
         posts: state.mainPages.posts,
         profile: state.mainPages.profile,
-        status: state.mainPages.status
+        status: state.mainPages.status,
+        authorizedUserId:state.userAuth.data.id,
+        isAuth: state.userAuth.data.isUserAuth,
     }
 }
 

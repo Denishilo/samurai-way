@@ -33,3 +33,10 @@
 .fieldWrapper{
     width: 200px;
 }
+.formError {
+    width: 195px;
+    text-align: center;
+    border: 1px solid #ff649f;
+    color: #ff649f;
+    border-radius: 10px;
+}

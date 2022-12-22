@@ -6,10 +6,8 @@ import {AllPropsType} from "./HeaderContainer";
 
 type HeaderTypeProps = {
     data: AllPropsType
-
 }
 export const Header = (props: HeaderTypeProps) => {
-    console.log('props',props)
     const {login, isUserAuth} = props.data.data
     return (
         <header className={styles.header}>

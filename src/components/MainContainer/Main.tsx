@@ -13,8 +13,6 @@ type MainPropsType = {
 
 export const Main = (props: MainPropsType) => {
     const {profile, status , updateUserStatusTC} = props.state
-    console.log(profile)
-    console.log('MAINSTATUS',status)
     if (!profile) {
         return <PreLoader/>
     }
@@ -27,7 +25,6 @@ export const Main = (props: MainPropsType) => {
                 <MainDescription info={profile.aboutMe}
                                  contacts={profile.contacts}
                                  name={profile.fullName}/>
-
             </div>
         </div>
     )
