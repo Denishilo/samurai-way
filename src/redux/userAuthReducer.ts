@@ -44,8 +44,9 @@ export const setUser = (id: string, login: string, email: string, isUserAuth: bo
     } as const
 }
 
-export const authThunkCreator = () => (dispatch: Dispatch) => {
-    authAPI.authMe().then(res => {
-        dispatch(setUser(res.data.id, res.data.login, res.data.email, true))
-    })
+export const authThunkCreator = () => (dispatch: Dispatch<any>) => {
+    return authAPI.authMe().then(res => {dispatch(setUser(res.data.id, res.data.login, res.data.email, true))})
+
 }
+
+export type AuthThunkType = ReturnType<typeof authThunkCreator>

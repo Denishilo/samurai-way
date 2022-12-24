@@ -1,6 +1,7 @@
 import React from "react";
 import {Main} from "./Main";
-import {addNewPost, getUserStatusTC,
+import {
+    addNewPost, getUserStatusTC,
     MainPageType, mainProfileThunkCreator, updateUserStatusTC,
 } from "../../redux/mainPagePostReducer";
 import {rootReducerType} from "../../redux/redux-store";
@@ -22,8 +23,8 @@ type MapDispatchToPropsType = {
     updateUserStatusTC: (status: string) => void
 }
 type MapStateTypeProps = MainPageType & {
-    authorizedUserId:string | null
-    isAuth:boolean
+    authorizedUserId: string | null
+    isAuth: boolean
 }
 
 export type MainContainerPropsType = MapStateTypeProps & MapDispatchToPropsType
@@ -33,8 +34,11 @@ export class MainComponent extends React.Component<AllPropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '26482'
-            //userId = '2'
+            userId = this.props.authorizedUserId ?? ''
+            if (!userId) {
+                this.props.history.push('/login')
+            }
+            //userId = '26482'
         }
         this.props.mainProfileThunkCreator(userId)
         this.props.getUserStatusTC(userId)
@@ -53,7 +57,7 @@ const mapStateToProps = (state: rootReducerType): MapStateTypeProps => {
         posts: state.mainPages.posts,
         profile: state.mainPages.profile,
         status: state.mainPages.status,
-        authorizedUserId:state.userAuth.data.id,
+        authorizedUserId: state.userAuth.data.id,
         isAuth: state.userAuth.data.isUserAuth,
     }
 }
