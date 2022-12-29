@@ -6,6 +6,14 @@ import {
 } from "../../redux/usersReducer";
 import {Users} from "./Users";
 import {PreLoader} from "../../common/components/PreLoader";
+import {
+    getCurrentPage,
+    getFollowingProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/usersSelectors";
 
 type mapStateType = {
     users: User[]
@@ -49,14 +57,25 @@ export class UsersComponent extends React.Component<AllUsersPropsType> {
     }
 }
 
+// const mapStateToProps = (state: rootReducerType): mapStateType => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingProgress: state.usersPage.followingProgress
+//     }
+// }
+
 const mapStateToProps = (state: rootReducerType): mapStateType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingProgress: state.usersPage.followingProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingProgress: getFollowingProgress(state),
     }
 }
 

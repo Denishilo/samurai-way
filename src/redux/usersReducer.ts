@@ -163,6 +163,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (
         dispatch(changeFetching())
         dispatch(setUsers(data.items))
         dispatch(setTotalUserCount(data.totalCount))
+        dispatch(changeCurrentPage(currentPage))
     })
 }
 
