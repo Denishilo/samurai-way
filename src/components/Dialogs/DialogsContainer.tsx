@@ -1,9 +1,9 @@
 import React from "react";
-import {addMessageActionCreatorAC, dialogsPages} from "../../redux/message-reducer";
+import {addMessageActionCreatorAC, dialogsPages} from "redux/message-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
-import {rootReducerType} from "../../redux/redux-store";
+import {rootReducerType} from "redux/redux-store";
 import {withAuthRedirect} from "../Hoc/withAuthRedirect";
 
 type MapStateType = {

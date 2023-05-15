@@ -1,6 +1,6 @@
-import {Dispatch} from "redux";
-import {mainProfileAPI} from "../api/mainProfileAPI";
+import {mainProfileAPI} from "api/mainProfileAPI";
 import {setUser} from "./userAuthReducer";
+import {AppThunkDispatch} from "./redux-store";
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = "SET-USER-PROFILE";
@@ -59,7 +59,7 @@ export const mainPagePostReducer = (state: MainPageType = initialState, action: 
         }
         case SET_USER_PROFILE:
             return {...state, profile: action.payload.profile}
-        case "SET-USER-STATUS":
+        case SET_USER_STATUS:
 
             return {...state, status: action.payload.status}
         default:
@@ -94,28 +94,19 @@ const setUserStatus = (status: string) => {
     } as const
 }
 
-export const mainProfileThunkCreator = (userId: string) => (dispatch: Dispatch) => {
-    mainProfileAPI.getProfile(userId)
-        .then(response => {
-            console.log(response)
-            dispatch(setUserProfile(response.data))
-        })
+export const mainProfileThunkCreator = (userId: string) => async (dispatch: AppThunkDispatch) => {
+    const res = await mainProfileAPI.getProfile(userId)
+    dispatch(setUserProfile(res.data))
 }
 
-export const getUserStatusTC = (userId: string) => (dispatch: Dispatch) => {
-    mainProfileAPI.getStatus(userId)
-        .then(res => {
-            console.log(res)
-            dispatch(setUserStatus(res.data))
-        })
+export const getUserStatusTC = (userId: string) => async (dispatch: AppThunkDispatch) => {
+    const res = await mainProfileAPI.getStatus(userId)
+    dispatch(setUserStatus(res.data))
 }
 
-export const updateUserStatusTC = (status: string) => (dispatch: Dispatch) => {
-    mainProfileAPI.updateStatus(status)
-        .then(res => {
-            console.log(res)
-            if (res.data.resultCode === 0) {
-                getUserStatusTC('26482')(dispatch)
-            }
-        })
+export const updateUserStatusTC = (status: string) => async (dispatch: AppThunkDispatch) => {
+    const res = await mainProfileAPI.updateStatus(status)
+    if (res.data.resultCode === 0) {
+        dispatch(getUserStatusTC('26482'))
+    }
 }

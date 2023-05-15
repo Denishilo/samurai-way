@@ -1,6 +1,6 @@
 import {instanceAxios} from "./usersAPI";
 import {Dispatch} from "redux";
-import {authThunkCreator, setUser} from "../redux/userAuthReducer";
+import {authThunkCreator, setUser} from "redux/userAuthReducer";
 import {stopSubmit} from "redux-form";
 
 export const authAPI = {
@@ -27,7 +27,7 @@ export const login = (email: string, password: string, rememberMe: boolean) => (
                 dispatch(authThunkCreator())
             } else {
                 let messages = res.messages.length > 0 ? res.messages[0] : 'some error'
-                dispatch(stopSubmit('login',{_error:messages}))
+                dispatch(stopSubmit('login', {_error: messages}))
             }
         })
 }

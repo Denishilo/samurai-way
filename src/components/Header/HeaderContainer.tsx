@@ -1,9 +1,9 @@
 import React from 'react';
-import {rootReducerType} from "../../redux/redux-store";
-import {UserAuthType} from "../../redux/userAuthReducer";
+import {rootReducerType} from "redux/redux-store";
+import {UserAuthType} from "redux/userAuthReducer";
 import {connect} from "react-redux";
 import {Header} from "./Header";
-import {logout} from "../../api/authAPI";
+import {logout} from "api/authAPI";
 
 type MapDispatchToPropsType = {
     logout:()=>void

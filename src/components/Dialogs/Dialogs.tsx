@@ -1,13 +1,13 @@
-import React from "react";
+import React, {memo} from "react";
 import styles from './Dialogs.module.css'
 import {DialogUser} from "./DialogUser/DialogUser";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {AllDialogsPropsType} from "./DialogsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, requiredField} from "../../utilites/validator/validator";
+import {maxLengthCreator, requiredField} from "utilites/validator/validator";
 import {Input} from "../FormsControls/FormsControls/Input";
 
-export const Dialogs = (props: AllDialogsPropsType) => {
+export const Dialogs = memo((props: AllDialogsPropsType) => {
     const {dialogsUsers, dialogsMessages,} = props.dialogsPages
     const {onClickAddMessage} = props
 
@@ -33,15 +33,12 @@ export const Dialogs = (props: AllDialogsPropsType) => {
             </div>
         </div>
     )
-}
+})
 
-type DialogsFormDataType = {
-    message: string
-}
 const maxLength50 = maxLengthCreator(50)
 
-const DialogsForm: React.FC<InjectedFormProps<DialogsFormDataType>> = (props) => {
-    const {handleSubmit}=props
+const DialogsForm: React.FC<InjectedFormProps<DialogsFormDataType>> = memo((props) => {
+    const {handleSubmit} = props
     return (
         <form className={styles.sendForm} onSubmit={handleSubmit} action="#">
             <Field component={Input}
@@ -49,11 +46,16 @@ const DialogsForm: React.FC<InjectedFormProps<DialogsFormDataType>> = (props) =>
                    title={'Shift+Enter for send'}
                    placeholder={'Type a new message'}
                    name={'message'}
-                   validate={[requiredField,maxLength50]}
+                   validate={[requiredField, maxLength50]}
             />
             <button className={styles.button}>send message</button>
         </form>
     )
-}
+})
 
 const DialogsReduxForm = reduxForm<DialogsFormDataType>({form: "dialogs"})(DialogsForm)
+
+///// types
+type DialogsFormDataType = {
+    message: string
+}

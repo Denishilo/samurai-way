@@ -30,4 +30,9 @@
 
 .login{
     font-size: 25px;
+
+}
+.log{
+    display: flex;
+    flex-direction: column;
 }

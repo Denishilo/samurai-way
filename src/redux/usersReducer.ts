@@ -1,7 +1,7 @@
 import {PhotoType} from "./mainPagePostReducer";
-import {usersAPI} from "../api/usersAPI";
-import {Dispatch} from "redux";
-import {followAPI} from "../api/followAPI";
+import {usersAPI} from "api/usersAPI";
+import {followAPI} from "api/followAPI";
+import {AppThunkDispatch} from "./redux-store";
 
 export type InitialStateType = {
     users: User[]
@@ -157,34 +157,29 @@ export const toggleFollowProgress = (isFetching: boolean, userId: string) => {
     } as const
 }
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => async (dispatch: AppThunkDispatch) => {
     dispatch(changeFetching())
-    usersAPI.getUsers(currentPage, pageSize).then(data => {
-        dispatch(changeFetching())
-        dispatch(setUsers(data.items))
-        dispatch(setTotalUserCount(data.totalCount))
-        dispatch(changeCurrentPage(currentPage))
-    })
+    const data = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(changeFetching())
+    dispatch(setUsers(data.items))
+    dispatch(setTotalUserCount(data.totalCount))
+    dispatch(changeCurrentPage(currentPage))
 }
 
-export const followThunkCreator = (id: string) => (dispatch: Dispatch) => {
+export const followThunkCreator = (id: string) => async (dispatch: AppThunkDispatch) => {
     dispatch(toggleFollowProgress(true, id))
-    followAPI.follow(id)
-        .then(res => {
-            if (res === 0) {
-                dispatch(changeFollowStatus(id))
-            }
-            dispatch(toggleFollowProgress(false, id))
-        })
+    const res = await followAPI.follow(id)
+    if (res === 0) {
+        dispatch(changeFollowStatus(id))
+    }
+    dispatch(toggleFollowProgress(false, id))
 }
 
-export const unfollowThunkCreator = (id: string) => (dispatch: Dispatch) => {
+export const unfollowThunkCreator = (id: string) => async (dispatch: AppThunkDispatch) => {
     dispatch(toggleFollowProgress(true, id))
-    followAPI.unfollow(id)
-        .then(res => {
-            if (res === 0) {
-                dispatch(changeFollowStatus(id))
-            }
-            dispatch(toggleFollowProgress(false, id))
-        })
+    const res = await followAPI.unfollow(id)
+    if (res === 0) {
+        dispatch(changeFollowStatus(id))
+    }
+    dispatch(toggleFollowProgress(false, id))
 }

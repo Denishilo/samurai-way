@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Users.module.css";
 import user1 from "../../img/users/user1.svg";
 import {NavLink} from "react-router-dom";
-import {User} from "../../redux/usersReducer";
+import {User} from "redux/usersReducer";
 
 type UsersPropsType = {
     onPageChanged: (pageNumber: number) => void
@@ -16,6 +16,7 @@ type UsersPropsType = {
 }
 
 export const Users = (props: UsersPropsType) => {
+    console.log('render users')
     const {
         totalUsersCount,
         pageSize,

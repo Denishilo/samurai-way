@@ -1,5 +1,5 @@
-import {Dispatch} from "redux";
-import {authAPI} from "../api/authAPI";
+import {authAPI} from "api/authAPI";
+import {AppThunkDispatch} from "./redux-store";
 
 export type UserAuthType = {
     data: UserDataType
@@ -9,7 +9,7 @@ export type UserDataType = {
     id: null | string
     login: null | string
     email: null | string
-    isUserAuth:boolean
+    isUserAuth: boolean
 }
 
 type AllUserAuthActionType = ReturnType<typeof setUser>
@@ -44,9 +44,7 @@ export const setUser = (id: string, login: string, email: string, isUserAuth: bo
     } as const
 }
 
-export const authThunkCreator = () => (dispatch: Dispatch<any>) => {
-    return authAPI.authMe().then(res => {dispatch(setUser(res.data.id, res.data.login, res.data.email, true))})
-
+export const authThunkCreator = () => async (dispatch: AppThunkDispatch) => {
+    const res = await authAPI.authMe()
+    dispatch(setUser(res.data.id, res.data.login, res.data.email, true))
 }
-
-export type AuthThunkType = ReturnType<typeof authThunkCreator>
