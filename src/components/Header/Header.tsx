@@ -17,7 +17,7 @@ export const Header = (props: HeaderTypeProps) => {
                 <div className={styles.login}>
                     {isUserAuth
                         ? <div className={styles.log}>{login}
-                            <button onClick={props.data.logout}>Log out</button>
+                            <button onClick={props.data.logout} className={styles.logOutButton}>Log out</button>
                         </div>
                         : <div className={styles.login}>
                             Login

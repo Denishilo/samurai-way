@@ -3,7 +3,8 @@ import styles from './Status.module.css'
 
 type StatusPropsType = {
     status: string
-    updateUserStatusTC: (status: string) => void
+    updateUserStatusTC: (status: string, userId:string) => void
+    userId?:string
 }
 
 export class Status extends React.PureComponent<StatusPropsType> {
@@ -19,7 +20,10 @@ export class Status extends React.PureComponent<StatusPropsType> {
     }
     onBlurDeactivate = () => {
         this.toggleEditMode()
-        this.props.updateUserStatusTC(this.state.status)
+        if(this.props.userId){
+            this.props.updateUserStatusTC(this.state.status, this.props.userId)
+        }
+
     }
 
     onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -1,15 +1,25 @@
-import React from "react";
+import React, {ChangeEvent, FC} from "react";
 import styles from './MainAvatar.module.css'
-import avatar from '../../../img/Frame.svg'
+import avatarDefault from '../../../img/Frame.svg'
 
-type MainAvatarPropsType = {
-    avatar:string
+type Props = {
+    avatar?: string
+    savePhoto: (photo: File) => void
+    isOwner: boolean
 }
 
-export const MainAvatar = (props:MainAvatarPropsType) => {
+export const MainAvatar: FC<Props> = ({savePhoto, avatar, isOwner}) => {
+    const changePhotoAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length) {
+            savePhoto(e.target.files[0])
+        }
+    }
     return (
-        <div className={styles.main__avatar}>
-            <img src={props.avatar ? props.avatar : avatar} alt="avatar" className={styles.mainPhoto}/>
+        <div className={styles.wrapper}>
+            <label htmlFor='fileField'>
+                <img src={avatar ? avatar : avatarDefault} alt="avatar" className={styles.mainPhoto}/>
+                {isOwner && <input id='fileField' type={"file"} onChange={changePhotoAvatar} className={styles.input}/>}
+            </label>
         </div>
     )
 }

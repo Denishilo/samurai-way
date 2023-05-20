@@ -3,17 +3,25 @@ import styles from './MainDescription.module.css'
 import {ContactsType} from "redux/mainPagePostReducer";
 
 type MainDescriptionPropsType = {
-    info: string | null
-    contacts: ContactsType
-    name: string
+    info?: string | null
+    contacts?: ContactsType
+    name?: string
+
+
 }
 export const MainDescription = (props: MainDescriptionPropsType) => {
-    const {info, name} = props
+    const {info, name,contacts} = props
+    console.log(contacts)
+
+
     return (
-        <div className={styles.mainDescription}>
-            <p className={styles.descriptionName}>{name}</p>
-            <p className={styles.descriptionLocation}>Minsk, Belarus</p>
-            <p>About me: {info}</p>
-        </div>
+        <>
+            <div className={styles.mainDescription}>
+                <p className={styles.descriptionName}>{name}</p>
+                <p className={styles.descriptionLocation}>Minsk, Belarus</p>
+                {contacts && <p>About me: {info}</p>}
+            </div>
+        </>
+
     )
 }

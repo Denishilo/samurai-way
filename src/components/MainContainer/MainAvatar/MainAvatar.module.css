@@ -1,5 +1,18 @@
-.mainPhoto{
-
+.wrapper {
     height: 200px;
-    width: 250px;
+    width: 200px;
+    margin-bottom: 15px;
+
+}
+
+.mainPhoto{
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+.input {
+    height: 100%;
+    width: 100%;
+    display: none;
+
 }
