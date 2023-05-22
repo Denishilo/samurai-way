@@ -1,21 +1,22 @@
-
-.navigation__link + .navigation__link{
+.navigation__link + .navigation__link {
     padding-top: 15px;
 }
 
-.main__img{
+.main__img {
     height: 250px;
 }
-.mainContainer{
+
+.mainContainer {
     display: flex;
     justify-content: space-between;
 }
-.myInfo{
+
+.myInfo {
     border-radius: 10px;
     margin: 10px;
     display: flex;
     flex-direction: column;
     align-self: center;
     align-items: end;
-    background:white;
+    background: white;
 }

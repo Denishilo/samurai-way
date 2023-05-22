@@ -3,72 +3,6 @@ import {usersAPI} from "api/usersAPI";
 import {followAPI} from "api/followAPI";
 import {AppThunkDispatch} from "./redux-store";
 
-export type InitialStateType = {
-    users: User[]
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-    followingProgress: Array<string>
-}
-
-type SetUsersType = {
-    type: 'SET-USERS',
-    payload: {
-        users: User[]
-    }
-}
-
-export type User = {
-    "name": string
-    "id": string
-    "uniqueUrlName": null | string
-    "photos": PhotoType
-    "status": null | string
-    "followed": boolean
-}
-
-type ChangeFollowStatusType = {
-    type: 'CHANGE-FOLLOW-STATUS',
-    payload: {
-        id: string
-    }
-}
-
-type ChangeCurrentPageType = {
-    type: 'CHANGE-CURRENT-PAGE',
-    payload: {
-        value: number
-    }
-}
-
-type SetTotalUserCountType = {
-    type: 'SET-TOTAL-COUNT',
-    payload: {
-        count: number
-    }
-}
-type ChangeFetchingValueType = {
-    type: 'TOGGLE-IS-FETCHING'
-
-}
-
-type ToggleFollowingProgress = {
-    type: 'TOGGLE-FOLLOWING',
-    payload: {
-        isFetching: boolean
-        userId: string
-    }
-}
-
-type AllUsersActionType =
-    SetUsersType
-    | ChangeFollowStatusType
-    | ChangeCurrentPageType
-    | SetTotalUserCountType
-    | ChangeFetchingValueType
-    | ToggleFollowingProgress
-
 const initialState: InitialStateType = {
     users: [],
     pageSize: 10,
@@ -183,3 +117,71 @@ export const unfollowThunkCreator = (id: string) => async (dispatch: AppThunkDis
     }
     dispatch(toggleFollowProgress(false, id))
 }
+
+/////// types
+
+export type InitialStateType = {
+    users: User[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+    followingProgress: Array<string>
+}
+
+type SetUsersType = {
+    type: 'SET-USERS',
+    payload: {
+        users: User[]
+    }
+}
+
+export type User = {
+    "name": string
+    "id": string
+    "uniqueUrlName": null | string
+    "photos": PhotoType
+    "status": null | string
+    "followed": boolean
+}
+
+type ChangeFollowStatusType = {
+    type: 'CHANGE-FOLLOW-STATUS',
+    payload: {
+        id: string
+    }
+}
+
+type ChangeCurrentPageType = {
+    type: 'CHANGE-CURRENT-PAGE',
+    payload: {
+        value: number
+    }
+}
+
+type SetTotalUserCountType = {
+    type: 'SET-TOTAL-COUNT',
+    payload: {
+        count: number
+    }
+}
+type ChangeFetchingValueType = {
+    type: 'TOGGLE-IS-FETCHING'
+
+}
+
+type ToggleFollowingProgress = {
+    type: 'TOGGLE-FOLLOWING',
+    payload: {
+        isFetching: boolean
+        userId: string
+    }
+}
+
+type AllUsersActionType =
+    SetUsersType
+    | ChangeFollowStatusType
+    | ChangeCurrentPageType
+    | SetTotalUserCountType
+    | ChangeFetchingValueType
+    | ToggleFollowingProgress

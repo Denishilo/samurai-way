@@ -6,14 +6,10 @@ type MainDescriptionPropsType = {
     info?: string | null
     contacts?: ContactsType
     name?: string
-
-
 }
+
 export const MainDescription = (props: MainDescriptionPropsType) => {
-    const {info, name,contacts} = props
-    console.log(contacts)
-
-
+    const {info, name, contacts} = props
     return (
         <>
             <div className={styles.mainDescription}>

@@ -1,20 +1,5 @@
 const ADD_MESSAGE = 'ADD-MESSAGE';
 
-export type DialogUserTypeProps = {
-    name: string
-    id: number
-}
-export type DialogItemTypeProps = {
-    id: number
-    message: string
-}
-export type dialogsPages = {
-    dialogsUsers: DialogUserTypeProps[]
-    dialogsMessages: DialogItemTypeProps[]
-}
-type actionDispatchType =
-    ReturnType<typeof addMessageActionCreatorAC>
-
 const initialState: dialogsPages = {
     dialogsUsers: <DialogUserTypeProps[]>[
         {id: 1, name: 'Denis'},
@@ -31,6 +16,7 @@ const initialState: dialogsPages = {
         {id: 5, message: 'Great work!'},
     ],
 }
+
 export const messageReducer = (state: dialogsPages = initialState, action: actionDispatchType): dialogsPages => {
     switch (action.type) {
         case ADD_MESSAGE:
@@ -40,6 +26,7 @@ export const messageReducer = (state: dialogsPages = initialState, action: actio
             return state
     }
 }
+
 export const addMessageActionCreatorAC = (message: string) => {
     return {
         type: ADD_MESSAGE,
@@ -49,3 +36,19 @@ export const addMessageActionCreatorAC = (message: string) => {
     } as const
 }
 
+//////// types
+
+export type DialogUserTypeProps = {
+    name: string
+    id: number
+}
+export type DialogItemTypeProps = {
+    id: number
+    message: string
+}
+export type dialogsPages = {
+    dialogsUsers: DialogUserTypeProps[]
+    dialogsMessages: DialogItemTypeProps[]
+}
+type actionDispatchType =
+    ReturnType<typeof addMessageActionCreatorAC>

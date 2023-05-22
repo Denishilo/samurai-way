@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import stylesNav from './components/Navigation/Navigation.module.css';
 import {Navigation} from "components/Navigation/Navigation";
-import {Redirect, Route, withRouter} from "react-router-dom";
+import {Route, withRouter} from "react-router-dom";
 import {Settings} from "components/Settings/Settings";
 import {DialogsContainer} from "components/Dialogs/DialogsContainer";
 import {UsersContainer} from "components/Users/UsersContainer";
@@ -43,7 +43,8 @@ class App extends React.Component<AppPropsType> {
                 <div className={stylesNav.navigation__section}>
                     <Navigation/>
                     <div className='wrapper__content'>
-                        <Route path={'/'} render={() => <Redirect to={'/profile/'}/>}/>
+                        {/*<Route path={'/'} render={() => <LoginContainer/>}/>*/}
+                        {/*<Route path={'/'} render={() => <MainContainer/>}/>*/}
                         <Route path={'/profile/:userId?'} render={() => <MainContainer/>}/>
                         <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                         <Route path={'/users'} render={() => <UsersContainer/>}/>

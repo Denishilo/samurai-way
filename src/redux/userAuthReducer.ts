@@ -1,18 +1,6 @@
 import {authAPI} from "api/authAPI";
 import {AppThunkDispatch} from "./redux-store";
-
-export type UserAuthType = {
-    data: UserDataType
-}
-
-export type UserDataType = {
-    id: null | string
-    login: null | string
-    email: null | string
-    isUserAuth: boolean
-}
-
-type AllUserAuthActionType = ReturnType<typeof setUser>
+import {securityAPI} from "api/securityAPI";
 
 const initialState = {
     data: {
@@ -20,18 +8,20 @@ const initialState = {
         login: null,
         email: null,
         isUserAuth: false
-    }
+    },
+    captchaUrl: '',
 }
 
 export const userAuthReducer = (state: UserAuthType = initialState, action: AllUserAuthActionType): UserAuthType => {
     switch (action.type) {
         case "SET-USER-AUTH":
-            console.log(action)
-            return {...state, data: {...state.data, ...action.payload}}
+            return {...state, data: action.payload}
+        case "SET-CAPTCHA":
+            return {...state, captchaUrl: action.payload.url}
     }
     return state
 }
-
+////////// ACTION CREATORS
 export const setUser = (id: string, login: string, email: string, isUserAuth: boolean) => {
     return {
         type: 'SET-USER-AUTH',
@@ -44,7 +34,42 @@ export const setUser = (id: string, login: string, email: string, isUserAuth: bo
     } as const
 }
 
+export const setCaptchaUrl = (url: string) => {
+    return {
+        type: 'SET-CAPTCHA',
+        payload: {
+            url
+        }
+    } as const
+}
+
+///////// THUNK CREATORS
+
 export const authThunkCreator = () => async (dispatch: AppThunkDispatch) => {
     const res = await authAPI.authMe()
-    dispatch(setUser(res.data.id, res.data.login, res.data.email, true))
+
+    if (res.resultCode === 0){
+        dispatch(setUser(res.data.id, res.data.login, res.data.email, true))
+    }
+
 }
+
+export const getCaptchaURL = () => async (dispatch: AppThunkDispatch) => {
+    const res = await securityAPI.getCaptchaURL()
+    dispatch(setCaptchaUrl(res.data.url))
+}
+
+//////types
+export type UserAuthType = {
+    data: UserDataType,
+    captchaUrl: string
+}
+
+export type UserDataType = {
+    id: null | string
+    login: null | string
+    email: null | string
+    isUserAuth: boolean
+}
+
+type AllUserAuthActionType = ReturnType<typeof setUser> | ReturnType<typeof setCaptchaUrl>

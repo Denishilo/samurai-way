@@ -26,6 +26,7 @@ type MapDispatchToPropsType = {
 type MapStateTypeProps = MainPageType & {
     authorizedUserId: string | null
     isAuth: boolean
+    userId: string | null
 }
 
 export type MainContainerPropsType = MapStateTypeProps & MapDispatchToPropsType
@@ -39,7 +40,6 @@ export class MainComponent extends React.Component<AllPropsType> {
             if (!userId) {
                 this.props.history.push('/login')
             }
-            //userId = '26482'
         }
         this.props.mainProfileThunkCreator(userId)
         this.props.getUserStatusTC(userId)
@@ -53,7 +53,6 @@ export class MainComponent extends React.Component<AllPropsType> {
         if (this.props.match.params.userId !== prevProps.match.params.userId) {
             this.refreshProfile()
         }
-
     }
 
     render() {
@@ -70,6 +69,7 @@ const mapStateToProps = (state: rootReducerType): MapStateTypeProps => {
         status: state.mainPages.status,
         authorizedUserId: state.userAuth.data.id,
         isAuth: state.userAuth.data.isUserAuth,
+        userId: state.userAuth.data.id
     }
 }
 

@@ -23,7 +23,6 @@ export class Status extends React.PureComponent<StatusPropsType> {
         if(this.props.userId){
             this.props.updateUserStatusTC(this.state.status, this.props.userId)
         }
-
     }
 
     onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,13 +30,13 @@ export class Status extends React.PureComponent<StatusPropsType> {
     }
 
 
-    componentDidUpdate(prevProps: Readonly<StatusPropsType>, prevState: Readonly<{}>) {
-        if (prevProps.status !== this.props.status) {
-            this.setState({
-                status: this.props.status
-            })
-        }
-    }
+    // componentDidUpdate(prevProps: Readonly<StatusPropsType>, prevState: Readonly<{}>) {
+    //     if (prevProps.status !== this.props.status) {
+    //         this.setState({
+    //             status: this.props.status
+    //         })
+    //     }
+    // }
 
     render() {
         return (
