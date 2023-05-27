@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "../FormsControls/FormsControls/Input";
+import {Input} from "components/FormsControls/Input";
 import {maxLengthCreator, requiredField} from "utilites/validator/validator";
 import styles from './Login.module.css'
 import {connect} from "react-redux";
@@ -8,20 +8,11 @@ import {login} from "api/authAPI";
 import {Redirect} from "react-router-dom";
 import {rootReducerType} from "redux/redux-store";
 
-type FormLoginDataType = {
-    login: string
-    password: string
-    rememberMe: boolean
-    captchaUrl?:string
-}
-
 export const Login = (props: any) => {
 const [captcha, setCaptcha] =useState<string>('')
     const onSubmit = (formData: FormLoginDataType) => {
-        console.log(formData)
         props.login(formData.login, formData.password, formData.rememberMe, formData.captchaUrl)
     }
-
     if (props.userAuth) {
         return <Redirect to={'/profile'}/>
     }
@@ -35,8 +26,7 @@ const [captcha, setCaptcha] =useState<string>('')
         </div>
     )
 }
-const maxLength10 = maxLengthCreator(30)
-
+const maxLength10 = maxLengthCreator(40)
 
 export const LoginForm: React.FC<InjectedFormProps<FormLoginDataType, {captchaUrl?: string}>> = (props) => {
     const {handleSubmit} = props
@@ -53,7 +43,6 @@ export const LoginForm: React.FC<InjectedFormProps<FormLoginDataType, {captchaUr
             <div>
                 <Field component={'input'} name={'rememberMe'} type="checkbox"/> remember me
             </div>
-
             {props.error && <div className={styles.formError}>
                 {props.error}
             </div>}
@@ -68,15 +57,25 @@ export const LoginForm: React.FC<InjectedFormProps<FormLoginDataType, {captchaUr
 
 const LoginReduxForm = reduxForm<FormLoginDataType,  {captchaUrl?: string}>({form: 'login'})(LoginForm)
 
-type MapStateToPropsType = {
-    userAuth: boolean,
-    captchaUrl: string
-}
 const mapStateToProps = (state: rootReducerType): MapStateToPropsType => {
     return {
         userAuth: state.userAuth.data.isUserAuth,
         captchaUrl: state.userAuth.captchaUrl
     }
-
 }
+
 export const LoginContainer = connect(mapStateToProps, {login})(Login)
+
+////types ////
+
+type FormLoginDataType = {
+    login: string
+    password: string
+    rememberMe: boolean
+    captchaUrl?:string
+}
+
+type MapStateToPropsType = {
+    userAuth: boolean,
+    captchaUrl: string
+}

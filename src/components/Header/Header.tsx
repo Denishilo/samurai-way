@@ -4,9 +4,6 @@ import logo from '../../img/IMAGE.svg'
 import {NavLink} from "react-router-dom";
 import {AllPropsType} from "./HeaderContainer";
 
-type HeaderTypeProps = {
-    data: AllPropsType
-}
 export const Header = (props: HeaderTypeProps) => {
     const {login, isUserAuth} = props.data.data
     return (
@@ -25,7 +22,12 @@ export const Header = (props: HeaderTypeProps) => {
                         </div>}
                 </div>
             </div>
-
         </header>
     )
+}
+
+//////// types ///////
+
+type HeaderTypeProps = {
+    data: AllPropsType
 }

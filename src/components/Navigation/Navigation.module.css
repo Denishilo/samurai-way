@@ -1,4 +1,4 @@
-.navigation__section {
+.wrapper {
     display: flex;
     font-family: Open Sans,sans-serif;
     font-style: normal;
@@ -16,7 +16,6 @@
     display: inline-block;
     width: 28px;
     height: 28px;
-
     margin-right: 20px;
 
 }
@@ -24,15 +23,8 @@
     padding-left: 2rem;
 }
 
-.navigation__link{
-
-}
-
-
 .active__link {
     font-weight: bold;
-
-
 }
 
 a {
@@ -50,8 +42,6 @@ a:visited{
 
 .navigation__link {
     font-size: 1.6rem;
-
-
 }
 
 .navigation__link + .navigation__link {

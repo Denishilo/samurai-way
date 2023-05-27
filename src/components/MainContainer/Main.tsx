@@ -7,11 +7,6 @@ import {MainContainerPropsType} from "./MainContainer";
 import {PreLoader} from "common/components/PreLoader";
 import {Status} from "./Status/Status";
 
-type MainPropsType = {
-    state: MainContainerPropsType,
-    isOwner: boolean
-}
-
 export const Main = (props: MainPropsType) => {
     const {profile, status, updateUserStatusTC, updateAvatarPhoto} = props.state
     const {isOwner} = props
@@ -34,4 +29,11 @@ export const Main = (props: MainPropsType) => {
             </div>
         </div>
     )
+}
+
+///// types ////
+
+type MainPropsType = {
+    state: MainContainerPropsType,
+    isOwner: boolean
 }

@@ -2,12 +2,6 @@ import React, {ChangeEvent, FC} from "react";
 import styles from './MainAvatar.module.css'
 import avatarDefault from '../../../img/Frame.svg'
 
-type Props = {
-    avatar?: string
-    savePhoto: (photo: File) => void
-    isOwner: boolean
-}
-
 export const MainAvatar: FC<Props> = ({savePhoto, avatar, isOwner}) => {
     const changePhotoAvatar = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.length) {
@@ -22,4 +16,11 @@ export const MainAvatar: FC<Props> = ({savePhoto, avatar, isOwner}) => {
             </label>
         </div>
     )
+}
+
+///// types////
+type Props = {
+    avatar?: string
+    savePhoto: (photo: File) => void
+    isOwner: boolean
 }

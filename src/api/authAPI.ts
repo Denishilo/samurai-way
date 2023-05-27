@@ -1,29 +1,24 @@
 import {instanceAxios} from "./usersAPI";
-import {Dispatch} from "redux";
 import {authThunkCreator, getCaptchaURL, setUser} from "redux/userAuthReducer";
 import {stopSubmit} from "redux-form";
+import {AppThunkDispatch} from "redux/redux-store";
 
 export const authAPI = {
     authMe() {
-        return instanceAxios.get(`auth/me`)
-            .then(res => res.data)
+        return instanceAxios.get(`auth/me`).then(res => res.data)
     },
     login(email: string, password: string, rememberMe: boolean = false, captcha?: string) {
-        console.log(captcha)
-        console.log(email)
         return instanceAxios.post(`auth/login`, {email, password, rememberMe, captcha})
             .then(res => res.data)
     },
     logout() {
-        return instanceAxios.delete(`auth/login`)
-            .then(res => res.data)
+        return instanceAxios.delete(`auth/login`).then(res => res.data)
     }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean, captcha?:string) => (dispatch: Dispatch<any>) => {
+export const login = (email: string, password: string, rememberMe: boolean, captcha?: string) => (dispatch: AppThunkDispatch) => {
     authAPI.login(email, password, rememberMe, captcha)
         .then(res => {
-            console.log(res)
             if (res.resultCode === 0) {
                 dispatch(authThunkCreator())
             } else {
@@ -36,7 +31,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
         })
 }
 
-export const logout = () => (dispatch: Dispatch) => {
+export const logout = () => (dispatch: AppThunkDispatch) => {
     authAPI.logout()
         .then(res => {
             if (res.resultCode === 0) {

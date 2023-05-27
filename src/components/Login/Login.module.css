@@ -9,8 +9,8 @@
     border: none;
     resize: none;
     font-size: 16px;
-
 }
+
 .button {
     width: 195px;
     padding: 3px 39px;
@@ -25,14 +25,17 @@
     line-height: 20px;
     letter-spacing: 0;
 }
-.form{
+
+.form {
     display: flex;
     flex-direction: column;
-    gap:10px
+    gap: 10px
 }
-.fieldWrapper{
+
+.fieldWrapper {
     width: 200px;
 }
+
 .formError {
     width: 195px;
     text-align: center;

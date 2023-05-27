@@ -2,11 +2,6 @@ import React from "react";
 import styles from './Post.module.css'
 import like from '../../../../img/like.svg'
 
-type PostType = {
-    message: string
-    likesCount: number
-
-}
 export const Post = (props: PostType) => {
     return (
         <>
@@ -18,8 +13,14 @@ export const Post = (props: PostType) => {
                     <img className={styles.postLike_img} src={like} alt="like"/>{props.likesCount}
                 </div>
             </div>
-
         </>
-
     )
+}
+
+/////// types //////
+
+type PostType = {
+    message: string
+    likesCount: number
+
 }

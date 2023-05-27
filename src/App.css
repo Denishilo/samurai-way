@@ -1,21 +1,2 @@
-.App {
-    text-align: center;
-}
 
-ul {
-    list-style: none;
-    padding-left: 10px;
-}
-
-.wrapper {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 10px;
-}
-
-.wrapper__content {
-    border-radius: 10px;
-    width: 80%;
-    /*background: #FBF1E6*/
-}
 

@@ -1,11 +1,13 @@
 body {
   font-size: 10px;
-  margin: 0;
   font-family: -apple-system,Open Sans,sans-serif, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 10px;
 }
 
 code {

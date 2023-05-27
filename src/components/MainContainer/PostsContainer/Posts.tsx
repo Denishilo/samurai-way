@@ -3,9 +3,8 @@ import styles from './Posts.module.css'
 import {Post} from "./Post/post";
 import {AllPostsPropsType} from "./PostsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, requiredField} from "../../../utilites/validator/validator";
-import {Input} from "../../FormsControls/FormsControls/Input";
-
+import {maxLengthCreator, requiredField} from "utilites/validator/validator";
+import {Input} from "components/FormsControls/Input";
 
 export const Posts = (props: AllPostsPropsType) => {
     const {addPostHandler} = props
@@ -27,10 +26,7 @@ export const Posts = (props: AllPostsPropsType) => {
     )
 }
 
-type PostDataFormType = {
-    newPost: string
-}
-const maxLength10 = maxLengthCreator(10)
+const maxLength10 = maxLengthCreator(150)
 const PostForm: React.FC<InjectedFormProps<PostDataFormType>> = (props) => {
     const {handleSubmit} = props
     return (
@@ -48,3 +44,8 @@ const PostForm: React.FC<InjectedFormProps<PostDataFormType>> = (props) => {
 }
 
 const PostReduxForm = reduxForm<PostDataFormType>({form: 'posts'})(PostForm)
+
+///// types ////
+type PostDataFormType = {
+    newPost: string
+}

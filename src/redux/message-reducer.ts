@@ -6,14 +6,12 @@ const initialState: dialogsPages = {
         {id: 2, name: 'Kseniya'},
         {id: 3, name: 'Nikita'},
         {id: 4, name: 'Kirill'},
-        {id: 5, name: 'Svetlana'},
     ],
     dialogsMessages: <DialogItemTypeProps[]>[
         {id: 1, message: 'Hello!'},
         {id: 2, message: 'How are you?'},
         {id: 3, message: 'Good'},
-        {id: 4, message: 'I am study at quarter to 10 p.m.'},
-        {id: 5, message: 'Great work!'},
+        {id: 4, message: 'Great work!'},
     ],
 }
 

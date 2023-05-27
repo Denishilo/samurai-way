@@ -47,11 +47,10 @@ export const setCaptchaUrl = (url: string) => {
 
 export const authThunkCreator = () => async (dispatch: AppThunkDispatch) => {
     const res = await authAPI.authMe()
-
+    console.log(res)
     if (res.resultCode === 0){
         dispatch(setUser(res.data.id, res.data.login, res.data.email, true))
     }
-
 }
 
 export const getCaptchaURL = () => async (dispatch: AppThunkDispatch) => {

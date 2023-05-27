@@ -1,19 +1,9 @@
 import React from "react";
-import {addNewPost, MainPageType} from "../../../redux/mainPagePostReducer";
+import {addNewPost, MainPageType} from "redux/mainPagePostReducer";
 import {Posts} from "./Posts";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {rootReducerType} from "../../../redux/redux-store";
-
-type MapStatePropsType = {
-    mainPages: MainPageType
-}
-
-type MapDispatchPropsType = {
-    addPostHandler: (newPost: string) => void
-}
-
-export type AllPostsPropsType = MapStatePropsType & MapDispatchPropsType
+import {rootReducerType} from "redux/redux-store";
 
 let mapStateToProps = (state: rootReducerType): MapStatePropsType => {
     return {
@@ -30,3 +20,15 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
 }
 
 export const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts);
+
+///// types //////
+
+type MapStatePropsType = {
+    mainPages: MainPageType
+}
+
+type MapDispatchPropsType = {
+    addPostHandler: (newPost: string) => void
+}
+
+export type AllPostsPropsType = MapStatePropsType & MapDispatchPropsType

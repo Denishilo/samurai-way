@@ -5,7 +5,7 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {AllDialogsPropsType} from "./DialogsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, requiredField} from "utilites/validator/validator";
-import {Input} from "../FormsControls/FormsControls/Input";
+import {Input} from "components/FormsControls/Input";
 
 export const Dialogs = memo((props: AllDialogsPropsType) => {
     const {dialogsUsers, dialogsMessages,} = props.dialogsPages
@@ -19,7 +19,7 @@ export const Dialogs = memo((props: AllDialogsPropsType) => {
     }
 
     return (
-        <div className={styles.dialogs__wrapper}>
+        <>
             <div className={styles.dialogsContent}>
                 <div className={styles.dialogs__users}>
                     {dialogsUsersElements}
@@ -31,19 +31,19 @@ export const Dialogs = memo((props: AllDialogsPropsType) => {
             <div className={styles.sendForm}>
                 <DialogsReduxForm onSubmit={onSubmit}/>
             </div>
-        </div>
+        </>
     )
 })
 
-const maxLength50 = maxLengthCreator(50)
+const maxLength50 = maxLengthCreator(500)
 
 const DialogsForm: React.FC<InjectedFormProps<DialogsFormDataType>> = memo((props) => {
     const {handleSubmit} = props
+
     return (
         <form className={styles.sendForm} onSubmit={handleSubmit} action="#">
             <Field component={Input}
                    className={styles.textarea}
-                   title={'Shift+Enter for send'}
                    placeholder={'Type a new message'}
                    name={'message'}
                    validate={[requiredField, maxLength50]}

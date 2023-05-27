@@ -2,15 +2,10 @@ import {mainProfileAPI} from "api/mainProfileAPI";
 import {setUser} from "./userAuthReducer";
 import {AppThunkDispatch} from "./redux-store";
 
-const ADD_POST = 'ADD-POST';
-const SET_USER_PROFILE = "SET-USER-PROFILE";
-const SET_USER_STATUS = 'SET-USER-STATUS';
-const SET_AVATAR = 'SET-AVATAR';
-
 const initialState: MainPageType = {
     posts: <PostType[]>[
-        {id: 1, message: 'Hello my friends', likesCount: 10},
-        {id: 2, message: 'How are you? I\'m study in IT-INCUBATOR!', likesCount: 4},
+        {id: 1, message: 'Hi my friends!', likesCount: 10},
+        {id: 2, message: 'How are you? I\'m studying in IT-INCUBATOR!', likesCount: 4},
     ],
     profile: null,
     status: '',
@@ -19,7 +14,7 @@ const initialState: MainPageType = {
 export const mainPagePostReducer = (state: MainPageType = initialState, action: actionDispatchType): MainPageType => {
     switch (action.type) {
         case ADD_POST: {
-            const newPost: PostType = {id: 3, message: action.payload.newPost, likesCount: 0}
+            const newPost: PostType = {id: +new Date(), message: action.payload.newPost, likesCount: 0}
             return {...state, posts: [...state.posts, newPost]}
         }
         case SET_USER_PROFILE:
@@ -32,6 +27,11 @@ export const mainPagePostReducer = (state: MainPageType = initialState, action: 
             return state
     }
 }
+
+const ADD_POST = 'ADD-POST';
+const SET_USER_PROFILE = "SET-USER-PROFILE";
+const SET_USER_STATUS = 'SET-USER-STATUS';
+const SET_AVATAR = 'SET-AVATAR';
 
 /////// ACTION CREATORS
 
@@ -71,7 +71,7 @@ const setAvatar = (photo: PhotoType) => {
     } as const
 }
 
-//////// THUNK CREATORS
+//////// THUNK CREATORS ///////
 
 export const mainProfileThunkCreator = (userId: string) => async (dispatch: AppThunkDispatch) => {
     const res = await mainProfileAPI.getProfile(userId)
@@ -97,7 +97,7 @@ export const updateAvatarPhoto = (photo: File) => async (dispatch: AppThunkDispa
     }
 }
 
-/////types
+////// types //////
 export type PostType = {
     id: number
     message: string

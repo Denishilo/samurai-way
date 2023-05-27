@@ -2,12 +2,6 @@ import React from "react";
 import styles from './MainDescription.module.css'
 import {ContactsType} from "redux/mainPagePostReducer";
 
-type MainDescriptionPropsType = {
-    info?: string | null
-    contacts?: ContactsType
-    name?: string
-}
-
 export const MainDescription = (props: MainDescriptionPropsType) => {
     const {info, name, contacts} = props
     return (
@@ -18,6 +12,12 @@ export const MainDescription = (props: MainDescriptionPropsType) => {
                 {contacts && <p>About me: {info}</p>}
             </div>
         </>
-
     )
+}
+
+/////types ////
+type MainDescriptionPropsType = {
+    info?: string | null
+    contacts?: ContactsType
+    name?: string
 }

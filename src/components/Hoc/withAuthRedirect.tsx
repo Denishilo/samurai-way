@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 type MapStatePropsType = {
     data: boolean
 }
+
 let mapStateToPropsForRedirect = (state: rootReducerType): MapStatePropsType => {
     return {
         data: state.userAuth.data.isUserAuth

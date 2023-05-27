@@ -5,12 +5,6 @@ import {connect} from "react-redux";
 import {Header} from "./Header";
 import {logout} from "api/authAPI";
 
-type MapDispatchToPropsType = {
-    logout: () => void
-}
-
-export type AllPropsType = UserAuthType & MapDispatchToPropsType
-
 export class HeaderContainer extends React.Component<AllPropsType> {
     render() {
         return (
@@ -25,3 +19,11 @@ let mapStateToProps = (state: rootReducerType): UserAuthType => ({
 })
 
 export const HeaderComponent = connect(mapStateToProps, {logout})(HeaderContainer)
+
+///// types ////
+
+type MapDispatchToPropsType = {
+    logout: () => void
+}
+
+export type AllPropsType = UserAuthType & MapDispatchToPropsType
